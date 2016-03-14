@@ -37,6 +37,11 @@ namespace AccessControl.Controllers
 
                     var file = new FileInfo(foto.FileName);
                     if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif"){
+                        if (new UsuarioDao().Selecionar(usuario.Rfid) != null)
+                        {
+                            ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
+                            return View();
+                        }
                         new FotoDao().Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
                         new UsuarioDao().Inserir(usuario);
                     }
