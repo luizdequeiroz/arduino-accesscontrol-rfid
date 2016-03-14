@@ -1,0 +1,66 @@
+﻿@model AccessControl.Models.Usuario
+@{
+    ViewBag.Title = "Cadastrar";
+    ViewBag.Legend = "CADASTRO";
+}
+
+@{
+    if (new AccessControl.Models.DAOs.UsuarioDao().Selecionar((long)Session["rfid"]) != null)
+    {
+        <h2>@Html.ActionLink("Volte", "Inicio", "Inicio") para o Início e apresente um novo cartão, pois a sessão atual já está cadastrada!</h2>
+    }
+}
+
+@using (Html.BeginForm("Cadastrar", "Cadastro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="rfid" value="@Session["rfid"]" />
+    
+    <fieldset>
+        <legend><b>FOTO</b></legend>
+        <div class="editor-field">
+            <input type="file" id="file" name="file" />
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend><b>DADOS PESSOAIS</b></legend>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nome, new { placeholder = "NOME" })
+            @Html.ValidationMessageFor(model => model.Nome)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email, new { placeholder = "E-MAIL" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Descricao, new { placeholder = "DESCRIÇÃO" })
+            @Html.ValidationMessageFor(model => model.Descricao)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Telefone, new { type = "tel", placeholder = "TELEFONE" })
+            @Html.ValidationMessageFor(model => model.Telefone)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nascimento, new { type = "text", value = "", placeholder = "DATA DE NASCIMENTO" })
+            @Html.ValidationMessageFor(model => model.Nascimento)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend><b>TIPO DE USUÁRIO</b></legend>
+        @Html.ValidationMessageFor(model => model.Tipo)
+        <div class="editor-field">
+            @Html.RadioButtonFor(model => model.Tipo, "Nor") <span>Normal</span>
+            @Html.RadioButtonFor(model => model.Tipo, "Adm") <span>Administrador</span>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h2>APROXIME SEU CARTÃO PARA CADASTRAR!</h2>
+        <div>
+            <input type="submit" value="SALVAR" />
+        </div>
+    </fieldset>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

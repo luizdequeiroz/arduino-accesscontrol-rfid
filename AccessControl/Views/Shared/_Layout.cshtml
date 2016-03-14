@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <style type="text/css">
+        footer {
+            text-align: center;
+        }
+
+        .navigation {
+        }
+
+        .nav {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-align: center;
+        }
+
+            .nav li {
+                float: left;
+                width: 50%;
+                position: relative;
+            }
+
+            .nav li.adm {
+                width: 33.33%
+            }
+
+                .nav li a {
+                    background: #333;
+                    color: #fff;
+                    display: block;
+                    padding: 7px 8px;
+                    text-decoration: none;
+                    border-top: 1px solid #069;
+                }
+
+                    .nav li a:hover {
+                        color: #069;
+                    }
+
+        legend {
+            color: black;
+        }
+
+        /* Inputs */
+
+        /*
+        .input-style { //tem que dicionar as class nos inputs
+            height: 30px;
+            border-radius: 10px;
+            font-family: "Comic Sans Serif", "Comic Sans", cursive;
+            padding: 5px;
+        }
+
+        .button-style { //tem que adicionar a class no(s) button(s)
+            width: 100px;
+            height: 30px;
+            border: 0 none none;
+        }
+
+        .iso { //tem que adicionar as class nos fieldsets internos
+            color: white;
+            border-top-right-radius: 100%;
+            border-bottom-right-radius: 100%;
+        }
+        */
+
+        #foto {
+            float: left;
+            margin: 5px;
+        }
+
+        #dados {
+            margin: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: "Comic Sans Serif", "Comic Sans", cursive;
+        }
+    </style>
+</head>
+<body>
+    <header class="navigation">
+        <ul class="nav">
+            <li>
+                @Html.ActionLink("Início", "Inicio", "Inicio")
+            </li>
+            <li>
+                @Html.ActionLink("Cadastrar", "Cadastrar", "Cadastro")
+            </li>
+        </ul>
+    </header>
+    <section>
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            @RenderBody()
+        </fieldset>
+    </section>
+    <footer>
+        AccessControl &copy; Todos os direitos reservados.
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

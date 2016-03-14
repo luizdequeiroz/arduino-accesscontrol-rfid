@@ -1,0 +1,19 @@
+﻿@model AccessControl.Models.ObjsTest
+@{
+    ViewBag.Title = "Inicio";
+    ViewBag.Legend = "INÍCIO";
+}
+
+@using (Html.BeginForm())
+{
+    <!-- BEGIN TESTE -->
+    <p>
+        @Html.EditorFor(model => model.Rfid)
+        @Html.ValidationMessageFor(model => model.Rfid)
+    </p>
+    <p><input type="submit" value="ENVIAR" /></p>
+    <!-- END TESTE -->
+    <h2>
+        APROXIME SEU CARTÃO!
+    </h2>
+}
