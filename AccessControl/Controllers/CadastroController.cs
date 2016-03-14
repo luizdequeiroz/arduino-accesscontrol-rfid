@@ -70,12 +70,6 @@ namespace AccessControl.Controllers
             return Json(emails.All(e => e.ToLower() != email.ToLower()), JsonRequestBehavior.AllowGet);
         }
 
-        [NonAction]
-        public void AdicionarAlerta(string alerta)
-        {
-            ModelState.AddModelError("", alerta);
-        }
-
         public ActionResult Sucesso(Usuario usuario)
         {
             return View(usuario);
