@@ -3,7 +3,6 @@
     ViewBag.Title = "Cadastrar";
     ViewBag.Legend = "CADASTRO";
 }
-
 @{
     if (new AccessControl.Models.DAOs.UsuarioDao().Selecionar((long)Session["rfid"]) != null)
     {
@@ -60,7 +59,6 @@
         </div>
     </fieldset>
 }
-
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }

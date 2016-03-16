@@ -44,21 +44,23 @@
         </i>
     </div>
 </div>
-@{
-    if (Model.Tipo == "Adm")
-    {
-        <header class="navigation">
-            <ul class="nav">
-                <li class="adm">
-                    @Html.ActionLink("Consultar", "Consultar", "Administracao")
-                </li>
-                <li class="adm">
-                    @Html.ActionLink("Atualizar", "Atualizar", "Administracao")
-                </li>
-                <li class="adm">
-                    @Html.ActionLink("Deletar", "Deletar", "Administracao")
-                </li>
-            </ul>
-        </header>
+<p>
+    @{
+        if (Model.Tipo == "Adm")
+        {
+            <header class="navigation">
+                <ul class="nav">
+                    <li class="adm">
+                        @Html.ActionLink("Consultar", "Consultar", "Administracao")
+                    </li>
+                    <li class="adm">
+                        @Html.ActionLink("Atualizar", "Atualizar", "Administracao")
+                    </li>
+                    <li class="adm">
+                        @Html.ActionLink("Deletar", "Deletar", "Administracao")
+                    </li>
+                </ul>
+            </header>
+        }
     }
-}
+</p>

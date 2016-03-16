@@ -13,9 +13,20 @@ namespace AccessControl.Controllers
         public ActionResult Consultar(string busca = "")
         {
             var usuarios = new UsuarioDao().Listar();
+
+            if (Session["rfid"] == null)
+                return RedirectToAction("Inicio", "Inicio");
+
+            var us = usuarios.Where(x => x.Rfid.Equals(Session["rfid"])).FirstOrDefault();
+            if(us.Tipo != "Adm")
+                return RedirectToAction("Inicio", "Inicio");
+
             if (!string.IsNullOrEmpty(busca))
                 usuarios = usuarios.Where(u => u.Nome.Contains(busca)).ToList();
             usuarios = usuarios.OrderBy(u => u.Nome).ToList();
+
+            if(Request.IsAjaxRequest())
+                return PartialView("_Resultado", usuarios);
 
             return View(usuarios);
         }

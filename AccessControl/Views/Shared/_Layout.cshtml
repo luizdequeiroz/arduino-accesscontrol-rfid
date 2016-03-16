@@ -28,9 +28,9 @@
                 position: relative;
             }
 
-            .nav li.adm {
-                width: 33.33%
-            }
+                .nav li.adm {
+                    width: 33.33%;
+                }
 
                 .nav li a {
                     background: #333;
@@ -103,16 +103,15 @@
             </li>
         </ul>
     </header>
-    <section>
-        <fieldset>
-            <legend>@ViewBag.Legend</legend>
+    <fieldset>
+        <legend>@ViewBag.Legend</legend>
+        <section>
             @RenderBody()
-        </fieldset>
-    </section>
+        </section>
+    </fieldset>
     <footer>
         AccessControl &copy; Todos os direitos reservados.
     </footer>
-
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

@@ -2,18 +2,16 @@
 @{
     ViewBag.Title = "Consultar";
     ViewBag.Legend = "CONSULTA";
+    var obj = new AccessControl.Models.ObjsTest();
 }
 
-<fieldset>
-    @using (Ajax.BeginForm("Consultar", "Administracao", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divResultado" }))
-    {
-        <legend>
-            @Html.TextBox("busca") <input type="submit" value="Pesquisar" placeholder="PESQUISAR POR NOME" />
-        </legend>
-        <p>@Html.Partial("_Resultado", Model)</p>
-    }
-</fieldset>
-
+@using (Ajax.BeginForm("Consultar", "Administracao", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divResultado" }))
+{
+    <fieldset>
+        <legend>@Html.TextBox("busca")<input type="submit" value="Pesquisar" /></legend>
+        <div id="divResultado">@Html.Partial("_Resultado", Model)</div>
+    </fieldset>
+}
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }
