@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\luizd\onedrive\documentos\visual studio 2013\Projects\AccessControl\AccessControl\Models\AccessControl.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Repos\AccessControl-desenvolvimento\AccessControl\Models\AccessControl.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
