@@ -18,16 +18,21 @@ namespace AccessControl.Controllers
                 return RedirectToAction("Inicio", "Inicio");
 
             var us = usuarios.Where(x => x.Rfid.Equals(Session["rfid"])).FirstOrDefault();
-            if(us.Tipo != "Adm")
+            if (us.Tipo != "Adm")
                 return RedirectToAction("Inicio", "Inicio");
 
             if (!string.IsNullOrEmpty(busca))
-                usuarios = usuarios.Where(u => u.Nome.Contains(busca)).ToList();
+                usuarios = usuarios.Where(u => u.Nome.ToLower().Contains(busca.ToLower())).ToList();
             usuarios = usuarios.OrderBy(u => u.Nome).ToList();
 
-            if(Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest())
+            {
+                if (busca == "")
+                    usuarios = new List<Usuario>();
                 return PartialView("_Resultado", usuarios);
+            }
 
+            usuarios = new List<Usuario>();
             return View(usuarios);
         }
 
