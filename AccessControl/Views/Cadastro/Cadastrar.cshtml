@@ -14,7 +14,7 @@
 {
     @Html.ValidationSummary(true)
     <input type="hidden" name="rfid" value="@Session["rfid"]" />
-    
+
     <fieldset>
         <legend><b>FOTO</b></legend>
         <div class="editor-field">
@@ -54,9 +54,13 @@
     </fieldset>
     <fieldset>
         <h2>APROXIME SEU CARTÃO PARA CADASTRAR!</h2>
+
         <div>
+            <h3>Begin Input de Teste</h3>
             <input type="submit" value="SALVAR" />
+            <h3>End Input de Teste</h3>
         </div>
+
     </fieldset>
 }
 @section Scripts{
