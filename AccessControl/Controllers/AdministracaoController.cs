@@ -13,42 +13,42 @@ namespace AccessControl.Controllers
     {
         public ActionResult Consultar(string busca = "")
         {
-            var usuarios = new UsuarioDao().Listar();
+            var todos = new UsuarioDao().Listar();
+            var usuarios = new List<Usuario>();
 
             if (Session["rfid"] == null)
                 return RedirectToAction("Inicio", "Inicio");
 
-            var us = usuarios.Where(x => x.Rfid.Equals(Session["rfid"])).FirstOrDefault();
-            if (us.Tipo != "Adm")
+            var uSessao = todos.Where(u => u.Rfid.Equals(Session["rfid"])).FirstOrDefault();
+            if (uSessao.Tipo != "Adm")
                 return RedirectToAction("Inicio", "Inicio");
-
-            var massaDeDados = new Hashtable();
-            foreach (var use in usuarios)
-            {
-                string str = use.Nome + use.Email + use.Descricao + use.Telefone + use.Nascimento;
-                massaDeDados[use.Rfid] = str;
-            }
-            if (!string.IsNullOrEmpty(busca))
-                foreach (var use in usuarios)
-                {
-                    if (massaDeDados[use.Rfid].ToString().ToLower().Contains(busca.ToLower()))
-                    {
-                        usuarios.Add(usuarios.Where(u => u.Rfid.Equals(use.Rfid)).FirstOrDefault());
-                    }
-                }
 
             if (Request.IsAjaxRequest())
             {
                 if (busca.ToLower() == "normal")
-                    usuarios.AddRange(usuarios.Where(u => u.Tipo.ToLower().Equals("nor")));
-                if(busca.ToLower().Contains("adm"))
-                    usuarios.AddRange(usuarios.Where(u => u.Tipo.ToLower().Equals("adm")));
-                if (busca == "")
-                    usuarios = new List<Usuario>();
+                    usuarios.AddRange(todos.Where(u => u.Tipo.ToLower().Equals("nor")).ToList());
+                if (busca.ToLower().Contains("adm"))
+                    usuarios.AddRange(todos.Where(u => u.Tipo.ToLower().Equals("adm")).ToList());
+
+                if (!string.IsNullOrEmpty(busca))
+                {
+                    var massaDeDados = new Hashtable();
+                    foreach (var u in todos)
+                    {
+                        string str = u.Nome + u.Email + u.Descricao + u.Telefone + u.Nascimento;
+                        massaDeDados[u.Rfid] = str;
+                    }
+                    foreach (var us in todos)
+                    {
+                        if (massaDeDados[us.Rfid].ToString().ToLower().Contains(busca.ToLower()))
+                        {
+                            usuarios.Add(todos.Where(u => u.Rfid.Equals(us.Rfid)).FirstOrDefault());
+                        }
+                    }
+                }
                 return PartialView("_Resultado", usuarios.Distinct().OrderBy(u => u.Nome).ToList());
             }
 
-            usuarios = new List<Usuario>();
             return View(usuarios);
         }
 
