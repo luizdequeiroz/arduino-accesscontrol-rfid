@@ -25,7 +25,7 @@ namespace AccessControl.Controllers
             var massaDeDados = new Hashtable();
             foreach (var use in usuarios)
             {
-                string str = use.Nome + " " + use.Email + " " + use.Descricao + " " + use.Telefone + " " + use.Nascimento + " " + use.Tipo.Equals("Adm")?"Administrador":"Normal";
+                string str = use.Nome + use.Email + use.Descricao + use.Telefone + use.Nascimento;
                 massaDeDados[use.Rfid] = str;
             }
             if (!string.IsNullOrEmpty(busca))
@@ -33,13 +33,17 @@ namespace AccessControl.Controllers
                 {
                     if (massaDeDados[use.Rfid].ToString().ToLower().Contains(busca.ToLower()))
                     {
-                        usuarios = usuarios.Where(u => u.Rfid.Equals(use.Rfid)).ToList();
+                        usuarios.Add(usuarios.Where(u => u.Rfid.Equals(use.Rfid)).FirstOrDefault());
                     }
                 }
             usuarios = usuarios.OrderBy(u => u.Nome).ToList();
 
             if (Request.IsAjaxRequest())
             {
+                if (busca.ToLower() == "normal")
+                    usuarios.AddRange(usuarios.Where(u => u.Tipo.ToLower().Equals("nor")));
+                if(busca.ToLower().Contains("adm"))
+                    usuarios.AddRange(usuarios.Where(u => u.Tipo.ToLower().Equals("adm")));
                 if (busca == "")
                     usuarios = new List<Usuario>();
                 return PartialView("_Resultado", usuarios);
