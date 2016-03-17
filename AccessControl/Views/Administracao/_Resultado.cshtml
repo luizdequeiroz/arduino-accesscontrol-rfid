@@ -1,53 +1,46 @@
 ﻿@model List<AccessControl.Models.Usuario>
 
-@if (Model.Count == 0)
-{
-    <center><h2>Faça sua pesquisa!</h2></center>
-}
-else
-{
-    <div>
-        @foreach (var u in Model)
-        {
-            <div id="foto">
-                <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
+<div>
+    @foreach (var u in Model)
+    {
+        <div id="foto">
+            <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
+        </div>
+        <div id="dadosList">
+            <div>
+                <b>NOME</b>
+                <i>@Html.DisplayFor(model => u.Nome)</i>
             </div>
-            <div id="dadosList">
-                <div>
-                    <b>NOME</b>
-                    <i>@Html.DisplayFor(model => u.Nome)</i>
-                </div>
-                <div id="email">
-                    <b>E-MAIL </b>
-                    <i>@Html.DisplayFor(model => u.Email)</i>
-                </div>
-                <div id="descricao">
-                    <b>DESCRIÇÃO </b>
-                    <i>@Html.DisplayFor(model => u.Descricao)</i>
-                </div>
-                <div id="telefone">
-                    <b>TELEFONE </b>
-                    <i>@Html.DisplayFor(model => u.Telefone)</i>
-                </div>
-                <div id="nascimento">
-                    <b>DATA DE NASCIMENTO </b>
-                    <i>@Html.DisplayFor(model => u.Nascimento)</i>
-                </div>
-                <div id="tipo">
-                    <b>TIPO </b>
-                    <i>
-                        @if (u.Tipo.Equals("Nor"))
-                        {
-                            <span>Normal</span>
-                        }
-                        else
-                        {
-                            <span>Administrador</span>
-                        }
+            <div id="email">
+                <b>E-MAIL </b>
+                <i>@Html.DisplayFor(model => u.Email)</i>
+            </div>
+            <div id="descricao">
+                <b>DESCRIÇÃO </b>
+                <i>@Html.DisplayFor(model => u.Descricao)</i>
+            </div>
+            <div id="telefone">
+                <b>TELEFONE </b>
+                <i>@Html.DisplayFor(model => u.Telefone)</i>
+            </div>
+            <div id="nascimento">
+                <b>DATA DE NASCIMENTO </b>
+                <i>@Html.DisplayFor(model => u.Nascimento)</i>
+            </div>
+            <div id="tipo">
+                <b>TIPO </b>
+                <i>
+                    @if (u.Tipo.Equals("Nor"))
+                    {
+                        <span>Normal</span>
+                    }
+                    else
+                    {
+                        <span>Administrador</span>
+                    }
 
-                    </i>
-                </div>
+                </i>
             </div>
-        }
-    </div>
-}
+        </div>
+    }
+</div>

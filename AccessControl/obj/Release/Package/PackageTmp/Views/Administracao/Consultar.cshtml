@@ -1,0 +1,19 @@
+﻿@model List<AccessControl.Models.Usuario>
+@{
+    ViewBag.Title = "Consultar";
+    ViewBag.Legend = "CONSULTA";
+    var obj = new AccessControl.Models.ObjsTest();
+}
+
+@using (Ajax.BeginForm("Consultar", "Administracao", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "resultado" }))
+{
+    <fieldset>
+        <legend>@Html.TextBox("busca")<input type="submit" value="Pesquisar" /></legend>
+        <div id="resultado">
+            @Html.Partial("_Resultado", Model)
+        </div>
+    </fieldset>
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
