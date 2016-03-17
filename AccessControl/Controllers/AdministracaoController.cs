@@ -1,6 +1,7 @@
 ﻿using AccessControl.Models;
 using AccessControl.Models.DAOs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,8 +22,20 @@ namespace AccessControl.Controllers
             if (us.Tipo != "Adm")
                 return RedirectToAction("Inicio", "Inicio");
 
+            var massaDeDados = new Hashtable();
+            foreach (var use in usuarios)
+            {
+                string str = use.Nome + " " + use.Email + " " + use.Descricao + " " + use.Telefone + " " + use.Nascimento + " " + use.Tipo.Equals("Adm")?"Administrador":"Normal";
+                massaDeDados[use.Rfid] = str;
+            }
             if (!string.IsNullOrEmpty(busca))
-                usuarios = usuarios.Where(u => u.Nome.ToLower().Contains(busca.ToLower())).ToList();
+                foreach (var use in usuarios)
+                {
+                    if (massaDeDados[use.Rfid].ToString().ToLower().Contains(busca.ToLower()))
+                    {
+                        usuarios = usuarios.Where(u => u.Rfid.Equals(use.Rfid)).ToList();
+                    }
+                }
             usuarios = usuarios.OrderBy(u => u.Nome).ToList();
 
             if (Request.IsAjaxRequest())
