@@ -36,7 +36,6 @@ namespace AccessControl.Controllers
                         usuarios.Add(usuarios.Where(u => u.Rfid.Equals(use.Rfid)).FirstOrDefault());
                     }
                 }
-            usuarios = usuarios.OrderBy(u => u.Nome).ToList();
 
             if (Request.IsAjaxRequest())
             {
@@ -46,7 +45,7 @@ namespace AccessControl.Controllers
                     usuarios.AddRange(usuarios.Where(u => u.Tipo.ToLower().Equals("adm")));
                 if (busca == "")
                     usuarios = new List<Usuario>();
-                return PartialView("_Resultado", usuarios);
+                return PartialView("_Resultado", usuarios.Distinct().OrderBy(u => u.Nome).ToList());
             }
 
             usuarios = new List<Usuario>();
