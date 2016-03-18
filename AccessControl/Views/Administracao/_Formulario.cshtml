@@ -1,41 +1,78 @@
 ﻿@model List<AccessControl.Models.Usuario>
 
+<script type="text/javascript" language="javascript">
+    function loaderOn() {
+        $("#load").css("display", "normal");
+    }
+    function loaderOff() {
+        $("#load").css("display", "none");
+    }
+
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var img = document.getElementById('img');
+            img.src = reader.result;
+            img.style = 'display: normal';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
 @if (Model.Count == 0)
 {
     <center><h2 id="faca">Faça sua pesquisa!</h2></center>
 }
 else
 {
-    <div>
-        @foreach (var u in Model)
+    foreach (var u in Model)
+    {
+        using (Ajax.BeginForm("Atualizar", "Administracao", new AjaxOptions
+                                                       {
+                                                           HttpMethod = "Get",
+                                                           InsertionMode = InsertionMode.Replace,
+                                                           UpdateTargetId = "formulario",
+                                                           LoadingElementId = "load",
+                                                           OnBegin = "loaderOn",
+                                                           OnSuccess = "loaderOff"
+                                                       }))
         {
-            <div id="foto">
-                <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
-            </div>
-            <div id="dadosList">
-                <div>
-                    <b>NOME</b>
-                    <i>@Html.DisplayFor(model => u.Nome)</i>
-                </div>
-                <div id="email">
-                    <b>E-MAIL </b>
-                    <i>@Html.DisplayFor(model => u.Email)</i>
-                </div>
-                <div id="descricao">
-                    <b>DESCRIÇÃO </b>
-                    <i>@Html.DisplayFor(model => u.Descricao)</i>
-                </div>
-                <div id="telefone">
-                    <b>TELEFONE </b>
-                    <i>@Html.DisplayFor(model => u.Telefone)</i>
-                </div>
-                <div id="nascimento">
-                    <b>DATA DE NASCIMENTO </b>
-                    <i>@Html.DisplayFor(model => u.Nascimento)</i>
-                </div>
-                <div id="tipo">
-                    <b>TIPO </b>
-                    <i>
+            <div id="formulario">
+                @if (Session["_local"].ToString() == "_edicao")
+                {
+                    Session["_local"] = "_go";
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <legend><b>FOTO</b></legend>
+                        <img id="img" src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().Selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" style="display:none" />
+                        <div class="editor-field">
+                            <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(event)" />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><b>DADOS PESSOAIS</b></legend>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(us => us.FirstOrDefault().Nome, new { placeholder = "NOME", value = u.Nome })
+                            @Html.ValidationMessageFor(us => us.FirstOrDefault().Nome)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(us => us.FirstOrDefault().Email, new { placeholder = "E-MAIL", value = u.Email })
+                            @Html.ValidationMessageFor(us => us.FirstOrDefault().Email)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(us => us.FirstOrDefault().Descricao, new { placeholder = "DESCRIÇÃO", value = u.Descricao })
+                            @Html.ValidationMessageFor(us => us.FirstOrDefault().Descricao)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(us => us.FirstOrDefault().Telefone, new { type = "tel", placeholder = "TELEFONE", value = u.Telefone })
+                            @Html.ValidationMessageFor(us => us.FirstOrDefault().Telefone)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(us => us.FirstOrDefault().Nascimento, new { type = "text", placeholder = "DATA DE NASCIMENTO", value = u.Nascimento })
+                            @Html.ValidationMessageFor(us => us.FirstOrDefault().Nascimento)
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><b>TIPO DE USUÁRIO</b></legend>
                         @if (u.Tipo.Equals("Nor"))
                         {
                             <span>Normal</span>
@@ -44,10 +81,61 @@ else
                         {
                             <span>Administrador</span>
                         }
-
-                    </i>
-                </div>
+                    </fieldset>
+                    <fieldset>
+                        <h2>APROXIME SEU CARTÃO PARA ATUALIZAR!</h2>
+                    </fieldset>
+                }
+                else
+                {
+                    Session["_local"] = "_edicao";
+                    <div id="foto">
+                        <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().Selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
+                    </div>
+                    <div id="dadosList">
+                        <div>
+                            <b>NOME</b>
+                            <i>@u.Nome</i>
+                        </div>
+                        <div id="email">
+                            <b>E-MAIL </b>
+                            <i>@u.Email</i>
+                        </div>
+                        <div id="descricao">
+                            <b>DESCRIÇÃO </b>
+                            <i>@u.Descricao</i>
+                        </div>
+                        <div id="telefone">
+                            <b>TELEFONE </b>
+                            <i>@u.Telefone</i>
+                        </div>
+                        <div id="nascimento">
+                            <b>DATA DE NASCIMENTO </b>
+                            <i>@u.Nascimento</i>
+                        </div>
+                        <div id="tipo">
+                            <b>TIPO </b>
+                            <i>
+                                @if (u.Tipo.Equals("Nor"))
+                                {
+                                    <span>Normal</span>
+                                }
+                                else
+                                {
+                                    <span>Administrador</span>
+                                }
+                            </i>
+                        </div>
+                    </div>
+                }
+            </div>
+            <input type="submit" name="atualizar" value="ATUALIZAR" />
+            <div id="load" style="display: none">
+                <img src="~/Content/images/loader.gif" />
             </div>
         }
-    </div>
+    }
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
 }
