@@ -11,9 +11,10 @@ namespace AccessControl.Controllers
 {
     public class AdministracaoController : Controller
     {
-        public ActionResult Consultar(string busca = "")
+        public List<Usuario> todos = new UsuarioDao().Listar();
+
+        public ActionResult _Busca(string busca = "")
         {
-            var todos = new UsuarioDao().Listar();
             var usuarios = new List<Usuario>();
 
             if (Session["rfid"] == null)
@@ -46,14 +47,21 @@ namespace AccessControl.Controllers
                         }
                     }
                 }
-                return PartialView("_Resultado", usuarios.Distinct().OrderBy(u => u.Nome).ToList());
+                return PartialView(Session["_page"].ToString(), usuarios.Distinct().OrderBy(u => u.Nome).ToList());
             }
 
             return View(usuarios);
         }
 
-        public ActionResult Alterar()
+        public ActionResult Consultar()
         {
+            Session["_page"] = "_Resultado";
+            return View();
+        }
+
+        public ActionResult Atualizar()
+        {
+            Session["_page"] = "_Formulario";
             return View();
         }
 

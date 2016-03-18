@@ -22,7 +22,7 @@ namespace AccessControl.Controllers
         public ActionResult Inicio(/* long rfid *//* BEGIN TESTE */ObjsTest objs)
         {
             /* BEGIN TESTE */
-            if (objs.Rfid == 0 || objs.Rfid == null)
+            if (objs.Rfid == 0)
             {
                 ModelState.AddModelError("Rfid", "Insira o código do RFID!");
                 return View();
