@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdministracaoController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -164,6 +165,7 @@
     <Content Include="App_Data\AccessControl_log.ldf">
       <DependentUpon>AccessControl.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -232,6 +234,8 @@
     <Content Include="Models\AccessControl.edmx.diagram">
       <DependentUpon>AccessControl.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\theaccesscontrol - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\theaccesscontrol - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Models\AccessControl.edmx.sql" />
     <Content Include="Models\AccessControl.tt">
@@ -269,6 +273,11 @@
     <Content Include="Views\Inicio\Perfil.cshtml" />
     <Content Include="Views\Cadastro\Cadastrar.cshtml" />
     <Content Include="Views\Cadastro\Sucesso.cshtml" />
+    <Content Include="Views\Administracao\Consultar.cshtml" />
+    <Content Include="Views\Administracao\_Resultado.cshtml" />
+    <Content Include="Views\Administracao\Atualizar.cshtml" />
+    <Content Include="Views\Administracao\_Formulario.cshtml" />
+    <Content Include="Views\Administracao\_Busca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -34,7 +34,7 @@ namespace AccessControl.Models.DAOs
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Erro ao tentar inserir a Foto: " + e);
+                    throw new Exception("Erro ao tentar inserir a Foto: " + e.Message);
                 }
             }
         }

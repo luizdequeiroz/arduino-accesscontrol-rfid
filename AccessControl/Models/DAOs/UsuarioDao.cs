@@ -34,7 +34,7 @@ namespace AccessControl.Models.DAOs
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Erro ao tentar inserir o Usuário: " + e.ToString());
+                    throw new Exception("Erro ao tentar inserir o Usuário: " + e.Message);
                 }
             }
         }
