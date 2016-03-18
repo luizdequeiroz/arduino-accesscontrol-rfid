@@ -3,6 +3,7 @@ using AccessControl.Models.DAOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,11 @@ namespace AccessControl.Controllers
 
         public ActionResult _Busca(string busca = "")
         {
+            if (busca == "" && Session["_busca"] != null)
+                busca = Session["_busca"].ToString();
+            else
+                Session["_busca"] = busca;
+
             var usuarios = new List<Usuario>();
 
             if (Session["rfid"] == null)
@@ -62,7 +68,52 @@ namespace AccessControl.Controllers
         public ActionResult Atualizar()
         {
             Session["_page"] = "_Formulario";
+            if (Session["_local"] != null && Session["_local"] == "_edicao")
+                return View();
+            Session["_local"] = "_perfil";
             return View();
+        }
+
+        public ActionResult AtualizarGo(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    byte[] byts;
+                    var foto = Request.Files[0];
+                    if (foto.FileName == "")
+                    {
+                        ModelState.AddModelError("", "É importante que você insira uma foto!");
+                        return View();
+                    }
+                    using (var reader = new BinaryReader(foto.InputStream))
+                        byts = reader.ReadBytes(foto.ContentLength);
+
+                    var file = new FileInfo(foto.FileName);
+                    if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
+                    {
+                        if (new UsuarioDao().Selecionar(usuario.Rfid) != null)
+                        {
+                            ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
+                            return View();
+                        }
+                        new FotoDao().Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                        new UsuarioDao().Atualizar(usuario);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Insira um arquivo de formato válido para imagem (.jpg, .png, .gif)");
+                        return View();
+                    }
+                    return View("Sucesso", usuario);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "Erro ao tentar Cadastrar Usuário: " + e);
+                }
+            }
+            return View(usuario);
         }
 
         public ActionResult Deletar()

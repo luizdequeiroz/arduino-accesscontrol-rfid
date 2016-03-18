@@ -7,7 +7,7 @@ namespace AccessControl.Models.DAOs
 {
     public class FotoDao
     {
-        public Foto selecionar(long rfid)
+        public Foto Selecionar(long rfid)
         {
             using (var acc = new AccessControlContainer())
             {
@@ -35,6 +35,25 @@ namespace AccessControl.Models.DAOs
                 catch (Exception e)
                 {
                     throw new Exception("Erro ao tentar inserir a Foto: " + e.Message);
+                }
+            }
+        }
+
+        public Foto Atualizar(Foto foto)
+        {
+            using (var acc = new AccessControlContainer())
+            {
+                try
+                {
+                    int id = Selecionar(foto.Rfid).Id;
+                    foto.Id = id;
+                    acc.FotoSet.Add(foto);
+                    acc.SaveChanges();
+                    return foto;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar atualizar a Foto: " + e.Message);
                 }
             }
         }

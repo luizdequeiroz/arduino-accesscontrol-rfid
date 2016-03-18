@@ -10,7 +10,7 @@ else
         @foreach (var u in Model)
         {
             <div id="foto">
-                <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
+                <img src="data:image;base64, @System.Convert.ToBase64String(new AccessControl.Models.DAOs.FotoDao().Selecionar(u.Rfid).Imagem)" alt="foto do perfil" height="100" width="100" />
             </div>
             <div id="dadosList">
                 <div>
