@@ -14,7 +14,7 @@ else
         <div id="foto">
             <img src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="100" width="100" />
         </div>
-        <div id="dados">
+        <div id="atualizar">
             <div>
                 <b>NOME</b>
                 <i>@usuario.Nome</i>
@@ -50,5 +50,10 @@ else
                 </i>
             </div>
         </div>
+        using (Html.BeginForm("Formulario", "Administracao", new { FormMethod = "Get" }))
+        {
+            <input type="hidden" id="usuario" name="usuario" value="@usuario" />
+            <input type="submit" id="atualizar" name="atualizar" value="ATUALIZAR" />
+        }
     }
 }

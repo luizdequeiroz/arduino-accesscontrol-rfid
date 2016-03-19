@@ -26,6 +26,7 @@
                 }))
 {
     <fieldset>
+        @Html.Hidden("pagina", "_Resultado")
         <legend>@Html.TextBox("busca")<input type="submit" value="Pesquisar" /></legend>
         <div id="load" style="display: none; text-align: center">
             <img src="~/Content/images/loader.gif" />
