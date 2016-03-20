@@ -278,6 +278,8 @@
     <Content Include="Views\Administracao\_Perfis.cshtml" />
     <Content Include="Views\Administracao\Formulario.cshtml" />
     <Content Include="Views\Administracao\Consultar.cshtml" />
+    <Content Include="Views\Administracao\ConsoleSql.cshtml" />
+    <Content Include="Views\Administracao\_ConsoleResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

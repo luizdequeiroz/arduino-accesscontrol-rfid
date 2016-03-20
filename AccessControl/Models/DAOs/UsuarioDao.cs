@@ -13,7 +13,7 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    var usuario = (from u in acc.UsuarioSet where u.Rfid == rfid select u).FirstOrDefault();
+                    var usuario = (from u in acc.UsuarioSet where u.Rfid == rfid select u).SingleOrDefault();
                     return usuario;
                 }
                 catch (Exception e)
@@ -60,9 +60,12 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    int id = Selecionar(usuario.Rfid).Id;
-                    usuario.Id = id;
-                    acc.UsuarioSet.Add(usuario);
+                    var Usuario = acc.UsuarioSet.Where(u => u.Rfid == usuario.Rfid).SingleOrDefault();
+                    Usuario.Nome = usuario.Nome;
+                    Usuario.Descricao = usuario.Descricao;
+                    Usuario.Telefone = usuario.Telefone;
+                    Usuario.Nascimento = usuario.Nascimento;
+
                     acc.SaveChanges();
                     return usuario;
                 }

@@ -52,17 +52,23 @@ namespace AccessControl.Controllers
                 try
                 {
                     byte[] byts;
+                    bool fileValid = false;
                     var foto = Request.Files[0];
                     if (foto.FileName == "")
                     {
-                        ModelState.AddModelError("", "É importante que você insira uma foto!");
-                        return View();
+                        byts = new FotoDao().Selecionar(usuario.Rfid).Imagem;
+                        fileValid = true;
                     }
-                    using (var reader = new BinaryReader(foto.InputStream))
-                        byts = reader.ReadBytes(foto.ContentLength);
+                    else
+                    {
+                        using (var reader = new BinaryReader(foto.InputStream))
+                            byts = reader.ReadBytes(foto.ContentLength);
 
-                    var file = new FileInfo(foto.FileName);
-                    if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
+                        var file = new FileInfo(foto.FileName);
+                        if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
+                            fileValid = true;
+                    }
+                    if (fileValid)
                     {
                         new FotoDao().Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
                         new UsuarioDao().Atualizar(usuario);
@@ -155,7 +161,7 @@ namespace AccessControl.Controllers
                                                        Rfid = (long)reader.GetValue(7)
                                                    });
                             if (reader.FieldCount == 3)
-                                resultados.Add(new Foto 
+                                resultados.Add(new Foto
                                                    {
                                                        Id = (int)reader.GetValue(0),
                                                        Rfid = (long)reader.GetValue(1),

@@ -14,17 +14,24 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     };
+    var loading = function (event) {
+        document.getElementById('load').style = 'display: normal; text-align: center';
+    }
 </script>
 
 @using (Html.BeginForm("Atualizar", "Administracao", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.Rfid, new { value = Model.Rfid })
+    @Html.HiddenFor(model => model.Email, new { value = Model.Email })
     @Html.HiddenFor(model => model.Tipo, new { value = Model.Tipo })
+    <div id="load" style="display: none">
+        <img src="~/Content/images/loader.gif" />
+    </div>
     <fieldset>
         <legend><b>FOTO</b></legend>
         <div class="editor-field">
-            <div><img id="img" src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="100" width="100" style="display:none" /></div>
+            <div><img id="img" src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="100" width="100" /></div>
             <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(event)" />
         </div>
     </fieldset>
@@ -35,8 +42,7 @@
             @Html.ValidationMessageFor(model => model.Nome)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Email, new { placeholder = "E-MAIL", value = Model.Email })
-            @Html.ValidationMessageFor(model => model.Email)
+            <i>@Model.Email</i>
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Descricao, new { placeholder = "DESCRIÇÃO", value = Model.Descricao })
@@ -47,7 +53,7 @@
             @Html.ValidationMessageFor(model => model.Telefone)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Nascimento, new { type = "text", value = "", placeholder = "DATA DE NASCIMENTO (01/01/" + DateTime.Now.Year + ")", value = Model.Nascimento })
+            @Html.TextBoxFor(model => model.Nascimento, new { type = "text", placeholder = "DATA DE NASCIMENTO", value = Model.Nascimento })
             @Html.ValidationMessageFor(model => model.Nascimento)
         </div>
     </fieldset>
@@ -68,7 +74,7 @@
         <h2>APROXIME SEU CARTÃO PARA ATUALIZAR!</h2>
         <div>
             <h3>Begin Input de Teste</h3>
-            <input type="submit" value="ATUALIZAR" />
+            <input type="submit" value="ATUALIZAR" onclick="loading(event)"/>
             <h3>End Input de Teste</h3>
         </div>
     </fieldset>

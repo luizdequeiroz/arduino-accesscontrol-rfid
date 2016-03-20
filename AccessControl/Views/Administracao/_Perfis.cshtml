@@ -1,7 +1,4 @@
 ﻿@model List<AccessControl.Models.Usuario>
-@{
-    var bfoto = new AccessControl.Models.DAOs.FotoDao().Selecionar(Model.Rfid);
-}
 
 @if (Model.Count == 0)
 {
@@ -11,10 +8,11 @@ else
 {
     foreach (var usuario in Model)
     {
+        var bfoto = new AccessControl.Models.DAOs.FotoDao().Selecionar(usuario.Rfid);
         <div id="foto">
             <img src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="100" width="100" />
         </div>
-        <div id="atualizar">
+        <div id="dadosList">
             <div>
                 <b>NOME</b>
                 <i>@usuario.Nome</i>
@@ -50,10 +48,6 @@ else
                 </i>
             </div>
         </div>
-        using (Html.BeginForm("Formulario", "Administracao", new { FormMethod = "Get" }))
-        {
-            <input type="hidden" id="usuario" name="usuario" value="@usuario" />
-            <input type="submit" id="atualizar" name="atualizar" value="ATUALIZAR" />
-        }
+        <div><a href="Formulario?Rfid=@usuario.Rfid">ATUALIZAR</a></div>
     }
 }

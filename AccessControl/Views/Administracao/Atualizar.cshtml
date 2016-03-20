@@ -14,7 +14,7 @@
     }
 </script>
 
-@using (Ajax.BeginForm("Consultar", "Administracao",
+@using (Ajax.BeginForm("Atualizar", "Administracao",
                 new AjaxOptions
                 {
                     HttpMethod = "Get",
@@ -26,13 +26,12 @@
                 }))
 {
     <fieldset>
-        @Html.Hidden("pagina", "_Perfis")
         <legend>@Html.TextBox("busca")<input type="submit" value="Pesquisar" /></legend>
         <div id="load" style="display: none; text-align: center">
             <img src="~/Content/images/loader.gif" />
         </div>
         <div id="resultado">
-            @Html.RenderPartial("_Perfis", Model); }
+            @{ Html.RenderPartial("_Perfis", Model); }
         </div>
     </fieldset>
 }

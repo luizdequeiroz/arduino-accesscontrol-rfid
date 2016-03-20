@@ -13,7 +13,7 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    var foto = (from f in acc.FotoSet where f.Rfid == rfid select f).FirstOrDefault();
+                    var foto = (from f in acc.FotoSet where f.Rfid == rfid select f).SingleOrDefault();
                     return foto;
                 }
                 catch (Exception e)
@@ -45,9 +45,9 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    int id = Selecionar(foto.Rfid).Id;
-                    foto.Id = id;
-                    acc.FotoSet.Add(foto);
+                    var Foto = acc.FotoSet.Where(f => f.Rfid == foto.Rfid).SingleOrDefault();
+                    Foto.Imagem = foto.Imagem;
+
                     acc.SaveChanges();
                     return foto;
                 }

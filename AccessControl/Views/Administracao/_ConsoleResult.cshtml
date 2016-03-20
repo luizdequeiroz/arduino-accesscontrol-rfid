@@ -1,0 +1,54 @@
+﻿@model List<Object>
+@if (Model != null)
+{
+    var Usuario = new AccessControl.Models.Usuario().GetType();
+    if (Model.FirstOrDefault().GetType() == Usuario)
+    {
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>NOME</td>
+                <td>EMAIL</td>
+                <td>DESCRIÇÃO</td>
+                <td>TELEFONE</td>
+                <td>DATA DE NASCIMENTO</td>
+                <td>TIPO</td>
+                <td>RFID</td>
+            </tr>
+            @foreach (var u in Model)
+            {
+                var usuario = (AccessControl.Models.Usuario)u;
+                <tr>
+                    <td>@usuario.Id</td>
+                    <td>@usuario.Nome</td>
+                    <td>@usuario.Email</td>
+                    <td>@usuario.Descricao</td>
+                    <td>@usuario.Telefone</td>
+                    <td>@usuario.Nascimento</td>
+                    <td>@usuario.Tipo</td>
+                    <td>@usuario.Rfid</td>
+                </tr>
+            }
+        </table>
+    }
+    var Foto = new AccessControl.Models.Foto().GetType();
+    if (Model.FirstOrDefault().GetType() == Foto)
+    {
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>RFID</td>
+                <td>IMAGEM</td>
+            </tr>
+            @foreach (var f in Model)
+            {
+                var foto = (AccessControl.Models.Foto)f;
+                <tr>
+                    <td>@foto.Id</td>
+                    <td>@foto.Rfid</td>
+                    <td>@foto.Imagem</td>
+                </tr>
+            }
+        </table>
+    }
+}
