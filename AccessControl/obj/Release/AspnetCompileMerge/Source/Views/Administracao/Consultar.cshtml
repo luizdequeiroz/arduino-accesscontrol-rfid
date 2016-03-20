@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Legend = "CONSOLE SQL";
+﻿@model List<AccessControl.Models.Usuario>
+@{
+    ViewBag.Legend = "CONSULTA";
 }
 
 <script type="text/javascript" language="javascript">
@@ -13,7 +14,7 @@
     }
 </script>
 
-@using (Ajax.BeginForm("ConsoleSql", "Administracao",
+@using (Ajax.BeginForm("Consultar", "Administracao",
                 new AjaxOptions
                 {
                     HttpMethod = "Get",
@@ -24,16 +25,16 @@
                     OnSuccess = "loaderOff"
                 }))
 {
-    <textarea cols="15" rows="5" name="consulta" id="consulta"></textarea>
-    <input type="submit" value="EXECUTAR" />
-    <div id="load" style="display: none; text-align: center">
-        <img src="~/Content/images/loader.gif" />
-    </div>
-    <div id="resultado">
-        @{ Html.RenderPartial("_ConsoleResult"); }
-    </div>
+    <fieldset>
+        <legend>@Html.TextBox("busca")<input type="submit" value="Pesquisar" /></legend>
+        <div id="load" style="display: none; text-align: center">
+            <img src="~/Content/images/loader.gif" />
+        </div>
+        <div id="resultado">
+            @{ Html.RenderPartial("_Resultado", Model); }
+        </div>
+    </fieldset>
 }
-
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }
