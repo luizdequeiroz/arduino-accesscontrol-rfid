@@ -23,6 +23,22 @@ namespace AccessControl.Models.DAOs
             }
         }
 
+        public Usuario SelecionarPorEmail(string email)
+        {
+            using (var acc = new AccessControlContainer())
+            {
+                try
+                {
+                    var usuario = (from u in acc.UsuarioSet where u.Email == email select u).SingleOrDefault();
+                    return usuario;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar selecionar Usuário pelo E-mail: " + e.Message);
+                }
+            }
+        }
+
         public int Inserir(Usuario usuario)
         {
             using (var acc = new AccessControlContainer())
