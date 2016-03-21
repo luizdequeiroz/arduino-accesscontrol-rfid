@@ -38,7 +38,6 @@ namespace AccessControl.Models
 
         [Required(ErrorMessage = "É de suma importância que vocę indique o tipo do cadastro!")]
         public string Tipo { get; set; }
-
         public long Rfid { get; set; }
     }
 }
