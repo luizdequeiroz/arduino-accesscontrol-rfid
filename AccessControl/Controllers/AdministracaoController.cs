@@ -38,9 +38,9 @@ namespace AccessControl.Controllers
             return retornarView(busca, "_Perfis");
         }
 
-        public ActionResult Formulario(long Rfid)
+        public ActionResult Formulario(string email)
         {
-            var usuario = new UsuarioDao().Selecionar(Rfid);
+            var usuario = new UsuarioDao().SelecionarPorEmail(email);
             return View(usuario);
         }
 
