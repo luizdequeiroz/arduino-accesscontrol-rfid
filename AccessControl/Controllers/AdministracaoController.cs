@@ -20,19 +20,6 @@ namespace AccessControl.Controllers
             return retornarView(busca, "_Resultado");
         }
 
-        [NonAction]
-        public ActionResult retornarView(string busca, string pagina)
-        {
-            var todos = new UsuarioDao().Listar();
-
-            if (SessionInvalida(todos))
-                return RedirectToAction("Inicio", "Inicio");
-            if (Request.IsAjaxRequest())
-                return PartialView(pagina, buscar(busca, todos));
-
-            return View(new List<Usuario>());
-        }
-
         public ActionResult Atualizar(string busca = "")
         {
             return retornarView(busca, "_Perfis");
@@ -87,10 +74,36 @@ namespace AccessControl.Controllers
             }
             return View(usuario);
         }
-
-        public ActionResult Deletar()
+        
+        public ActionResult Deletar(string busca = "", string email = "")
         {
+            if(string.IsNullOrEmpty(email))
+                return retornarView(busca, "_Deletaveis");
+            try
+            {
+                var rfid = new UsuarioDao().SelecionarPorEmail(email).Rfid;
+                new UsuarioDao().Deletar(rfid);
+                new FotoDao().Deletar(rfid);
+                return View(new List<Usuario> { new UsuarioDao().Selecionar((long)Session["Rfid"]) });
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", "Erro ao tentar deletar Usuário: " + e);
+            }
             return View();
+        }
+
+        [NonAction]
+        public ActionResult retornarView(string busca, string pagina)
+        {
+            var todos = new UsuarioDao().Listar();
+
+            if (SessionInvalida(todos))
+                return RedirectToAction("Inicio", "Inicio");
+            if (Request.IsAjaxRequest())
+                return PartialView(pagina, buscar(busca, todos));
+
+            return View(new List<Usuario>());
         }
 
         [NonAction]
