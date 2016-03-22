@@ -57,5 +57,22 @@ namespace AccessControl.Models.DAOs
                 }
             }
         }
+
+        public void Deletar(long rfid)
+        {
+            using (var acc = new AccessControlContainer())
+            {
+                try
+                {
+                    var foto = acc.FotoSet.Where(f => f.Rfid == rfid).SingleOrDefault();
+                    acc.FotoSet.Remove(foto);
+                    acc.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar deletar a Foto: " + e.Message);
+                }
+            }
+        }
     }
 }

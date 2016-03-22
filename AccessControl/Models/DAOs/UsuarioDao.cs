@@ -92,14 +92,13 @@ namespace AccessControl.Models.DAOs
             }
         }
 
-        public void Deletar(Usuario usuario)
+        public void Deletar(long rfid)
         {
             using (var acc = new AccessControlContainer())
             {
                 try
                 {
-                    int id = Selecionar(usuario.Rfid).Id;
-                    usuario.Id = id;
+                    var usuario = acc.UsuarioSet.Where(u => u.Rfid == rfid).SingleOrDefault();
                     acc.UsuarioSet.Remove(usuario);
                     acc.SaveChanges();
                 }
