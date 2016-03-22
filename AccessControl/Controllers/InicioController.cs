@@ -33,5 +33,10 @@ namespace AccessControl.Controllers
             if (usuario == null) return RedirectToAction("Cadastrar", "Cadastro");
             return View("Perfil", usuario);
         }
+
+        public ActionResult Sobre()
+        {
+            return View();
+        }
     }
 }
