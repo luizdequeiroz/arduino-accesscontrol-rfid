@@ -234,8 +234,6 @@
     <Content Include="Models\AccessControl.edmx.diagram">
       <DependentUpon>AccessControl.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\theaccesscontrol - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\theaccesscontrol - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Models\AccessControl.edmx.sql" />
     <Content Include="Models\AccessControl.tt">
@@ -258,7 +256,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -273,17 +273,23 @@
     <Content Include="Views\Inicio\Perfil.cshtml" />
     <Content Include="Views\Cadastro\Cadastrar.cshtml" />
     <Content Include="Views\Cadastro\Sucesso.cshtml" />
-    <Content Include="Views\Administracao\Consultar.cshtml" />
     <Content Include="Views\Administracao\_Resultado.cshtml" />
     <Content Include="Views\Administracao\Atualizar.cshtml" />
-    <Content Include="Views\Administracao\_Formulario.cshtml" />
-    <Content Include="Views\Administracao\_Busca.cshtml" />
+    <Content Include="Views\Administracao\_Perfis.cshtml" />
+    <Content Include="Views\Administracao\Formulario.cshtml" />
+    <Content Include="Views\Administracao\Consultar.cshtml" />
+    <Content Include="Views\Administracao\Deletar.cshtml" />
+    <Content Include="Views\Administracao\_Deletaveis.cshtml" />
+    <Content Include="Views\Inicio\Sobre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

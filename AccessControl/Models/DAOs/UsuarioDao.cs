@@ -13,12 +13,28 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    var usuario = (from u in acc.UsuarioSet where u.Rfid == rfid select u).FirstOrDefault();
+                    var usuario = (from u in acc.UsuarioSet where u.Rfid == rfid select u).SingleOrDefault();
                     return usuario;
                 }
                 catch (Exception e)
                 {
                     throw new Exception("Erro ao tentar selecionar Usuário pelo Rfid: " + e.Message);
+                }
+            }
+        }
+
+        public Usuario SelecionarPorEmail(string email)
+        {
+            using (var acc = new AccessControlContainer())
+            {
+                try
+                {
+                    var usuario = (from u in acc.UsuarioSet where u.Email == email select u).SingleOrDefault();
+                    return usuario;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Erro ao tentar selecionar Usuário pelo E-mail: " + e.Message);
                 }
             }
         }
@@ -60,9 +76,12 @@ namespace AccessControl.Models.DAOs
             {
                 try
                 {
-                    int id = Selecionar(usuario.Rfid).Id;
-                    usuario.Id = id;
-                    acc.UsuarioSet.Add(usuario);
+                    var Usuario = acc.UsuarioSet.Where(u => u.Rfid == usuario.Rfid).SingleOrDefault();
+                    Usuario.Nome = usuario.Nome;
+                    Usuario.Descricao = usuario.Descricao;
+                    Usuario.Telefone = usuario.Telefone;
+                    Usuario.Nascimento = usuario.Nascimento;
+
                     acc.SaveChanges();
                     return usuario;
                 }
@@ -73,14 +92,13 @@ namespace AccessControl.Models.DAOs
             }
         }
 
-        public void Deletar(Usuario usuario)
+        public void Deletar(long rfid)
         {
             using (var acc = new AccessControlContainer())
             {
                 try
                 {
-                    int id = Selecionar(usuario.Rfid).Id;
-                    usuario.Id = id;
+                    var usuario = acc.UsuarioSet.Where(u => u.Rfid == rfid).SingleOrDefault();
                     acc.UsuarioSet.Remove(usuario);
                     acc.SaveChanges();
                 }

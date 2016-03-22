@@ -79,6 +79,6 @@ C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.Razor.xml
 C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.WebPages.xml
 C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.WebPages.Deployment.xml
 C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.WebPages.Razor.xml
-C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.csprojResolveAssemblyReference.cache
 C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.dll
 C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.pdb
+C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.csprojResolveAssemblyReference.cache

@@ -1,8 +1,6 @@
 ﻿@model List<AccessControl.Models.Usuario>
 @{
-    ViewBag.Title = "Consultar";
     ViewBag.Legend = "CONSULTA";
-    var obj = new AccessControl.Models.ObjsTest();
 }
 
 <script type="text/javascript" language="javascript">
@@ -33,14 +31,7 @@
             <img src="~/Content/images/loader.gif" />
         </div>
         <div id="resultado">
-            @if (Model.Count == 0)
-            {
-                <center><h2 id="faca">Faça sua pesquisa!</h2></center>
-            }
-            else
-            {
-                @Html.Partial("_Resultado", Model)
-            }
+            @{ Html.RenderPartial("_Resultado", Model); }
         </div>
     </fieldset>
 }
