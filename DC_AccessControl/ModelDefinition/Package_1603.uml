@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="894835e5-13be-4d5a-9226-7ab9fc30ef65"
+  name="AccessControl"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="7aa3cc4c-9c82-42dd-82d9-18c324f4aa98"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DAccessControl"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="ae1cfcfb-e4a0-465f-aeb2-36dcfa765b37"
+        LastKnownName="Models"
+        LastKnownLocation="Package5_1603.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="467d7089-5e1b-4f43-8d62-951d5ec551c7"
+        LastKnownName="Controllers"
+        LastKnownLocation="Package_1610.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
