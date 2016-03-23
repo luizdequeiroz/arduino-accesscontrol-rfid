@@ -8,12 +8,12 @@
 }
 
 <div id="foto">
-    <img src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="100" width="100" />
+    <img src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="120" width="120" />
 </div>
-<div id="dados">
+<div id="dados"><a class="func" href="Administracao/Formulario?email=@Model.Email">ATUALIZAR-ME</a>
     <div id="email">
         <b>E-MAIL </b>
-        <i>@Html.DisplayFor(model => model.Email)</i><a class="func" href="Administracao/Formulario?email=@Model.Email">ATUALIZAR-ME</a>
+        <i>@Html.DisplayFor(model => model.Email)</i>
     </div>
     <div id="descricao">
         <b>DESCRIÇÃO </b>

@@ -32,7 +32,7 @@ namespace AccessControl.Controllers
         public ActionResult Formulario(string email)
         {
             var usuario = usuarioDao.SelecionarPorEmail(email);
-            if (usuario.Tipo.Equals("Adm") && !usuario.Rfid.Equals((string)Session["rfid"]))
+            if (usuario.Tipo.Equals("Adm") && !usuario.Rfid.Equals((long)Session["rfid"]))
                 return RedirectToAction("Inicio", "Inicio");
             return View(usuario);
         }
