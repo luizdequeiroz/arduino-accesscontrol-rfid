@@ -15,6 +15,8 @@ namespace AccessControl.Controllers
 {
     public class AdministracaoController : Controller
     {
+        UsuarioDao usuarioDao = new UsuarioDao();
+        FotoDao fotoDao = new FotoDao();
         public static Hashtable cache = new Hashtable();
 
         public ActionResult Consultar(string busca = "")
@@ -29,7 +31,7 @@ namespace AccessControl.Controllers
 
         public ActionResult Formulario(string email)
         {
-            var usuario = new UsuarioDao().SelecionarPorEmail(email);
+            var usuario = usuarioDao.SelecionarPorEmail(email);
             if (usuario.Tipo.Equals("Adm") && !usuario.Rfid.Equals((string)Session["rfid"]))
                 return RedirectToAction("Inicio", "Inicio");
             return View(usuario);
@@ -61,8 +63,8 @@ namespace AccessControl.Controllers
                     }
                     if (fileValid)
                     {
-                        new FotoDao().Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
-                        new UsuarioDao().Atualizar(usuario);
+                        fotoDao.Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                        usuarioDao.Atualizar(usuario);
                     }
                     else
                     {
@@ -86,9 +88,9 @@ namespace AccessControl.Controllers
             try
             {
                 var rfid = new UsuarioDao().SelecionarPorEmail(email).Rfid;
-                new UsuarioDao().Deletar(rfid);
-                new FotoDao().Deletar(rfid);
-                return View(new List<Usuario> { new UsuarioDao().Selecionar((long)Session["Rfid"]) });
+                usuarioDao.Deletar(rfid);
+                fotoDao.Deletar(rfid);
+                return View(new List<Usuario> { usuarioDao.Selecionar((long)Session["Rfid"]) });
             }
             catch (Exception e)
             {
@@ -114,7 +116,7 @@ namespace AccessControl.Controllers
             }
             /* END TESTE */
 
-            var usuario = new UsuarioDao().Selecionar(objs.Rfid);
+            var usuario = usuarioDao.Selecionar(objs.Rfid);
             if (usuario == null || usuario.Tipo.Equals("Nor"))
             {
                 ModelState.AddModelError("", "Rfid inválido, não possui autoridade ou não existe!");
@@ -128,8 +130,8 @@ namespace AccessControl.Controllers
                     var byts = (byte[])AdministracaoController.cache["byts"];
                     AdministracaoController.cache.Remove("usuario");
                     AdministracaoController.cache.Remove("byts");
-                    new FotoDao().Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
-                    new UsuarioDao().Inserir(usuario);
+                    fotoDao.Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                    usuarioDao.Inserir(usuario);
                     AdministracaoController.cache["nomeCadastrado"] = usuario.Nome;
                     return RedirectToAction("Sucesso", "Cadastro");
                 }
@@ -145,7 +147,7 @@ namespace AccessControl.Controllers
         [NonAction]
         public ActionResult retornarView(string busca, string pagina)
         {
-            var todos = new UsuarioDao().Listar();
+            var todos = usuarioDao.Listar();
 
             if (SessionInvalida(todos))
                 return RedirectToAction("Inicio", "Inicio");

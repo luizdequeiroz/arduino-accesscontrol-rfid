@@ -12,11 +12,13 @@ namespace AccessControl.Controllers
 {
     public class InicioController : Controller
     {
+        UsuarioDao usuarioDao = new UsuarioDao();
+
         public ActionResult Inicio()
         {
             if (Session["rfid"] != null)
             {
-                var usuario = new UsuarioDao().Selecionar((long)Session["rfid"]);
+                var usuario = usuarioDao.Selecionar((long)Session["rfid"]);
                 if (usuario == null)
                 {
                     Session.Remove("rfid");
@@ -39,7 +41,7 @@ namespace AccessControl.Controllers
                 return View();
             }
             /* END TESTE */
-            var usuario = new UsuarioDao().Selecionar(objs.Rfid);
+            var usuario = usuarioDao.Selecionar(objs.Rfid);
             Session["rfid"] = objs.Rfid;
             if (usuario == null) return RedirectToAction("Cadastrar", "Cadastro");
             return View("Perfil", usuario);

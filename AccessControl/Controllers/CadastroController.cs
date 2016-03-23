@@ -11,6 +11,8 @@ namespace AccessControl.Controllers
 {
     public class CadastroController : Controller
     {
+        UsuarioDao usuarioDao = new UsuarioDao();
+
         public ActionResult Cadastrar()
         {            
             if (Session["autorize"] == null)
@@ -41,7 +43,7 @@ namespace AccessControl.Controllers
                     var file = new FileInfo(foto.FileName);
                     if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
                     {
-                        if (new UsuarioDao().Selecionar(usuario.Rfid) != null)
+                        if (usuarioDao.Selecionar(usuario.Rfid) != null)
                         {
                             ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
                             return View();
@@ -68,7 +70,7 @@ namespace AccessControl.Controllers
         public ActionResult EmailUnico(string email)
         {
             var emails = new List<string>();
-            var todos = new UsuarioDao().Listar();
+            var todos = usuarioDao.Listar();
             foreach (var u in todos)
                 emails.Add(u.Email);
 
