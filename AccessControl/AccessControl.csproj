@@ -281,6 +281,7 @@
     <Content Include="Views\Administracao\Deletar.cshtml" />
     <Content Include="Views\Administracao\_Deletaveis.cshtml" />
     <Content Include="Views\Inicio\Sobre.cshtml" />
+    <Content Include="Views\Administracao\Autorize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
