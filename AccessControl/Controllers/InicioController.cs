@@ -14,6 +14,17 @@ namespace AccessControl.Controllers
     {
         public ActionResult Inicio()
         {
+            if (Session["rfid"] != null)
+            {
+                var usuario = new UsuarioDao().Selecionar((long)Session["rfid"]);
+                if (usuario == null)
+                {
+                    Session.Remove("rfid");
+                    return RedirectToAction("Inicio", "Inicio");
+                }
+
+                return View("Perfil", usuario);
+            }
             var objs = new ObjsTest();
             return View(objs);
         }
@@ -37,6 +48,13 @@ namespace AccessControl.Controllers
         public ActionResult Sobre()
         {
             return View();
+        }
+
+        public ActionResult Sair()
+        {
+            if (Session["rfid"] != null)
+                Session.Remove("rfid");
+            return RedirectToAction("Inicio");
         }
     }
 }
