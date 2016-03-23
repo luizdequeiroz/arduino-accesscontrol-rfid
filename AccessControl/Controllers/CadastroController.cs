@@ -12,8 +12,11 @@ namespace AccessControl.Controllers
     public class CadastroController : Controller
     {
         public ActionResult Cadastrar()
-        {
+        {            
+            if (Session["autorize"] == null)
+                return RedirectToAction("Autorize", "Administracao");
             var usuario = new Usuario();
+            Session.Remove("autorize");
             return View(usuario);
         }
 
@@ -36,21 +39,23 @@ namespace AccessControl.Controllers
                         byts = reader.ReadBytes(foto.ContentLength);
 
                     var file = new FileInfo(foto.FileName);
-                    if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif"){
+                    if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
+                    {
                         if (new UsuarioDao().Selecionar(usuario.Rfid) != null)
                         {
                             ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
                             return View();
                         }
-                        new FotoDao().Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
-                        new UsuarioDao().Inserir(usuario);
+
+                        AdministracaoController.cache["usuario"] = usuario;
+                        AdministracaoController.cache["byts"] = byts;
                     }
                     else
                     {
                         ModelState.AddModelError("", "Insira um arquivo de formato válido para imagem (.jpg, .png, .gif)");
                         return View();
                     }
-                    return View("Sucesso", usuario);
+                    return RedirectToAction("Autorize", "Administracao");
                 }
                 catch (Exception e)
                 {
