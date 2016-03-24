@@ -5,6 +5,7 @@
 }
 else
 {
+    <br />
     foreach (var usuario in Model)
     {
         var bfoto = new AccessControl.Models.DAOs.FotoDao().Selecionar(usuario.Rfid);
@@ -47,5 +48,6 @@ else
                 </i>
             </div>
         </div>
+        <hr>
     }
 }

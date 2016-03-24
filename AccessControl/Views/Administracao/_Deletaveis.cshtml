@@ -6,6 +6,7 @@
 }
 else
 {
+    <br />
     foreach (var usuario in Model)
     {
         if (usuario.Tipo.Equals("Nor"))
@@ -50,6 +51,7 @@ else
                     </i><a class="func" href="Deletar?email=@usuario.Email">DELETAR</a>
                 </div>
             </div>
+            <hr>
         }
     }
 }
