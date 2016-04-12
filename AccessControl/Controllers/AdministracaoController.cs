@@ -15,6 +15,10 @@ namespace AccessControl.Controllers
 {
     public class AdministracaoController : Controller
     {
+        UsuarioDao usuarioDao = new UsuarioDao();
+        FotoDao fotoDao = new FotoDao();
+        public static Hashtable cache = new Hashtable();
+
         public ActionResult Consultar(string busca = "")
         {
             return retornarView(busca, "_Resultado");
@@ -27,7 +31,10 @@ namespace AccessControl.Controllers
 
         public ActionResult Formulario(string email)
         {
-            var usuario = new UsuarioDao().SelecionarPorEmail(email);
+            var usuario = usuarioDao.SelecionarPorEmail(email);
+            var tipo = usuarioDao.Selecionar((long)Session["rfid"]).Tipo;
+            if ((usuario.Tipo.Equals("Adm") && !usuario.Rfid.Equals((long)Session["rfid"])) || tipo.Equals("Nor"))
+                return RedirectToAction("Inicio", "Inicio");
             return View(usuario);
         }
 
@@ -57,8 +64,8 @@ namespace AccessControl.Controllers
                     }
                     if (fileValid)
                     {
-                        new FotoDao().Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
-                        new UsuarioDao().Atualizar(usuario);
+                        fotoDao.Atualizar(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                        usuarioDao.Atualizar(usuario);
                     }
                     else
                     {
@@ -74,17 +81,17 @@ namespace AccessControl.Controllers
             }
             return View(usuario);
         }
-        
+
         public ActionResult Deletar(string busca = "", string email = "")
         {
-            if(string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
                 return retornarView(busca, "_Deletaveis");
             try
             {
                 var rfid = new UsuarioDao().SelecionarPorEmail(email).Rfid;
-                new UsuarioDao().Deletar(rfid);
-                new FotoDao().Deletar(rfid);
-                return View(new List<Usuario> { new UsuarioDao().Selecionar((long)Session["Rfid"]) });
+                usuarioDao.Deletar(rfid);
+                fotoDao.Deletar(rfid);
+                return View(new List<Usuario> { usuarioDao.Selecionar((long)Session["Rfid"]) });
             }
             catch (Exception e)
             {
@@ -93,10 +100,55 @@ namespace AccessControl.Controllers
             return View();
         }
 
+        public ActionResult Autorize()
+        {
+            var objs = new ObjsTest();
+            return View(objs);
+        }
+
+        [HttpPost]
+        public ActionResult Autorize(/*long rfid*/ObjsTest objs)
+        {
+            /* BEGIN TESTE */
+            if (objs.Rfid == 0)
+            {
+                ModelState.AddModelError("", "Insira o código do RFID!");
+                return View();
+            }
+            /* END TESTE */
+
+            var usuario = usuarioDao.Selecionar(objs.Rfid);
+            if (usuario == null || usuario.Tipo.Equals("Nor"))
+            {
+                ModelState.AddModelError("", "Rfid inválido, não possui autoridade ou não existe!");
+                return View();
+            }
+            if (AdministracaoController.cache.Count == 2)
+            {
+                try
+                {
+                    usuario = (Usuario)AdministracaoController.cache["usuario"];
+                    var byts = (byte[])AdministracaoController.cache["byts"];
+                    AdministracaoController.cache.Remove("usuario");
+                    AdministracaoController.cache.Remove("byts");
+                    fotoDao.Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                    usuarioDao.Inserir(usuario);
+                    AdministracaoController.cache["nomeCadastrado"] = usuario.Nome;
+                    return RedirectToAction("Sucesso", "Cadastro");
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "Erro ao tentar Cadastrar Usuário: " + e);
+                }
+            }
+            Session["autorize"] = objs.Rfid;
+            return RedirectToAction("Cadastrar", "Cadastro");
+        }
+
         [NonAction]
         public ActionResult retornarView(string busca, string pagina)
         {
-            var todos = new UsuarioDao().Listar();
+            var todos = usuarioDao.Listar();
 
             if (SessionInvalida(todos))
                 return RedirectToAction("Inicio", "Inicio");

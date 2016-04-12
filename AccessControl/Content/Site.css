@@ -60,3 +60,13 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+/* RESOLUÇÃO ADAPTATIVA */
+
+@media screem and (min-width : 360px) {
+    div#foto, img {
+        display: block;
+        float: none;
+        text-align: center;
+    }
+}

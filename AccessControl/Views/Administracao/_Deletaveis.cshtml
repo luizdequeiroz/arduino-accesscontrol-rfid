@@ -2,10 +2,11 @@
 
 @if (Model.Count == 0)
 {
-    <center><h2 id="faca">Faça sua pesquisa!</h2></center>
+    <h2 id="faca">Faça sua pesquisa!</h2>
 }
 else
 {
+    <br />
     foreach (var usuario in Model)
     {
         if (usuario.Tipo.Equals("Nor"))
@@ -47,10 +48,10 @@ else
                             <span>Administrador</span>
                         }
 
-                    </i>
+                    </i><a class="func" href="Deletar?email=@usuario.Email">DELETAR</a>
                 </div>
             </div>
-            <div><a href="Deletar?email=@usuario.Email">DELETAR</a></div>
+            <hr>
         }
     }
 }

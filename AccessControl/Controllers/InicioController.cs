@@ -12,8 +12,22 @@ namespace AccessControl.Controllers
 {
     public class InicioController : Controller
     {
+        UsuarioDao usuarioDao = new UsuarioDao();
+
         public ActionResult Inicio()
         {
+            AdministracaoController.cache.Clear();
+            if (Session["rfid"] != null)
+            {
+                var usuario = usuarioDao.Selecionar((long)Session["rfid"]);
+                if (usuario == null)
+                {
+                    Session.Remove("rfid");
+                    return RedirectToAction("Inicio", "Inicio");
+                }
+
+                return View("Perfil", usuario);
+            }
             var objs = new ObjsTest();
             return View(objs);
         }
@@ -28,7 +42,7 @@ namespace AccessControl.Controllers
                 return View();
             }
             /* END TESTE */
-            var usuario = new UsuarioDao().Selecionar(objs.Rfid);
+            var usuario = usuarioDao.Selecionar(objs.Rfid);
             Session["rfid"] = objs.Rfid;
             if (usuario == null) return RedirectToAction("Cadastrar", "Cadastro");
             return View("Perfil", usuario);
@@ -37,6 +51,13 @@ namespace AccessControl.Controllers
         public ActionResult Sobre()
         {
             return View();
+        }
+
+        public ActionResult Sair()
+        {
+            if (Session["rfid"] != null)
+                Session.Remove("rfid");
+            return RedirectToAction("Inicio");
         }
     }
 }

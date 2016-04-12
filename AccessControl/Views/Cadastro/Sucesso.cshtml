@@ -1,3 +1,7 @@
-﻿@model AccessControl.Models.Usuario
+﻿@{
+    var cache = AccessControl.Controllers.AdministracaoController.cache;
 
-<center><h2>Sucesso, @Html.DisplayFor(model => model.Nome) foi cadastrado!</h2></center>
+<h2>Sucesso, @cache["nomeCadastrado"].ToString() foi cadastrado(a)!</h2>
+
+    AccessControl.Controllers.AdministracaoController.cache.Remove("nomeCadastrado");
+}

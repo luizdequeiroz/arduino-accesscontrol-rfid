@@ -49,11 +49,11 @@
             @Html.ValidationMessageFor(model => model.Descricao)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Telefone, new { type = "tel", placeholder = "TELEFONE", value = Model.Telefone })
+            @Html.TextBoxFor(model => model.Telefone, new { placeholder = "TELEFONE", value = Model.Telefone })
             @Html.ValidationMessageFor(model => model.Telefone)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.Nascimento, new { type = "text", placeholder = "DATA DE NASCIMENTO", value = Model.Nascimento })
+            @Html.TextBoxFor(model => model.Nascimento, new { placeholder = "DATA DE NASCIMENTO", value = Model.Nascimento })
             @Html.ValidationMessageFor(model => model.Nascimento)
         </div>
     </fieldset>
@@ -71,14 +71,17 @@
         </i>
     </fieldset>
     <fieldset>
-        <h2>APROXIME SEU CARTÃO PARA ATUALIZAR!</h2>
-        <div>
-            <h3>Begin Input de Teste</h3>
-            <input type="submit" value="ATUALIZAR" onclick="loading(event)"/>
-            <h3>End Input de Teste</h3>
-        </div>
+        <p><input class="func" type="submit" value="ATUALIZAR" onclick="loading(event)" /></p>
     </fieldset>
 }
+
+<script>
+    jQuery(function ($) {
+        $("#Telefone").mask("(99) 99999-9999");
+        $("#Nascimento").mask("99/99/9999")
+    });
+</script>
+
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }
