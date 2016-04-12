@@ -52,6 +52,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AccessControl.pt-BR.resx">
+      <DependentUpon>AccessControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AccessControl.resx">
       <DependentUpon>AccessControl.cs</DependentUpon>
     </EmbeddedResource>

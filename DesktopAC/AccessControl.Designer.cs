@@ -29,23 +29,39 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccessControl));
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.WebAC = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
+            // 
+            // webBrowser1
+            // 
+            resources.ApplyResources(this.webBrowser1, "webBrowser1");
+            this.webBrowser1.Name = "webBrowser1";
+            // 
+            // WebAC
+            // 
+            resources.ApplyResources(this.WebAC, "WebAC");
+            this.WebAC.IsWebBrowserContextMenuEnabled = false;
+            this.WebAC.Name = "WebAC";
+            this.WebAC.ScriptErrorsSuppressed = true;
+            this.WebAC.Url = new System.Uri("http://localhost:4034/", System.UriKind.Absolute);
             // 
             // AccessControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 488);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Controls.Add(this.WebAC);
+            this.Controls.Add(this.webBrowser1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AccessControl";
-            this.Opacity = 0.85D;
-            this.Text = "AccessControl";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.WebBrowser WebAC;
     }
 }
 
