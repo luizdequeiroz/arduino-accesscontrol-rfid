@@ -19,13 +19,18 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     };
+    var loading = function (event) {
+        document.getElementById('load').style = 'display: normal; text-align: center';
+    }
 </script>
 
 @using (Html.BeginForm("Cadastrar", "Cadastro", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
     <input type="hidden" name="rfid" value="@Session["rfid"]" />
-
+    <div id="load" style="display: none">
+        <img src="~/Content/images/loader.gif" />
+    </div>
     <fieldset>
         <legend><b>FOTO</b></legend>
         <div class="editor-field">
@@ -65,7 +70,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <p><input class="func" type="submit" value="SALVAR" /></p>
+        <p><input class="func" type="submit" value="SALVAR" onclick="loading(event)" /></p>
     </fieldset>
 }
 
