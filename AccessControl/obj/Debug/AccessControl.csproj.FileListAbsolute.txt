@@ -75,3 +75,10 @@ C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.WebPages.Dep
 C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.WebPages.Razor.xml
 C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.dll
 C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.pdb
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Net.Http.Formatting.dll
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.Http.dll
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.Http.WebHost.dll
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Net.Http.Formatting.xml
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.Http.xml
+C:\Repos\AccessControl-desenvolvimento\AccessControl\bin\System.Web.Http.WebHost.xml
+C:\Repos\AccessControl-desenvolvimento\AccessControl\obj\Debug\AccessControl.csprojResolveAssemblyReference.cache
