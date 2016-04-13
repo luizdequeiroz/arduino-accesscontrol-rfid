@@ -23,7 +23,7 @@
 <div id="dados">
     @if (Model.Tipo.Equals("Adm"))
     {
-        <a class="func" href="Administracao/Formulario?email=@Model.Email" onclick="loading(event)">ATUALIZAR-ME</a>
+        <a class="func" href="~/Administracao/Formulario?email=@Model.Email" onclick="loading(event)">ATUALIZAR-ME</a>
     }
     <div id="email">
         <b>E-MAIL </b>
@@ -54,7 +54,7 @@
                     <span>Administrador</span>
                 }
             }
-        </i><a class="func" href="Inicio/Sair" onclick="loading(event)">Sair</a>
+        </i><a class="func" href="~/Inicio/Sair" onclick="loading(event)">Sair</a>
     </div>
 </div>
 
@@ -65,13 +65,13 @@
             <header class="navigation">
                 <ul class="nav">
                     <li class="adm">
-                        <a href="Administracao/Consultar" onclick="loading(event)">Consultar</a>
+                        <a href="~/Administracao/Consultar" onclick="loading(event)">Consultar</a>
                     </li>
                     <li class="adm">
-                        <a href="Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
+                        <a href="~/Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
                     </li>
                     <li class="adm">
-                        <a href="Administracao/Deletar" onclick="loading(event)">Deletar</a>
+                        <a href="~/Administracao/Deletar" onclick="loading(event)">Deletar</a>
                     </li>
                 </ul>
             </header>
