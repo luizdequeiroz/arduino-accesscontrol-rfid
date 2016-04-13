@@ -146,6 +146,26 @@
             @RenderBody()
         </section>
     </fieldset>
+    <div>
+        @{
+            if (ViewBag.Tipo == "Adm")
+            {
+                <header class="navigation col-md-12">
+                    <ul class="nav col-md-12">
+                        <li class="adm col-md-4">
+                            <a href="~/Administracao/Consultar" onclick="loading(event)">Consultarr</a>
+                        </li>
+                        <li class="adm col-md-4">
+                            <a href="~/Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
+                        </li>
+                        <li class="adm col-md-4">
+                            <a href="~/Administracao/Deletar" onclick="loading(event)">Deletar</a>
+                        </li>
+                    </ul>
+                </header>
+            }
+        }
+    </div>
     <footer>
         AccessControl &copy; Todos os direitos reservados.
     </footer>
