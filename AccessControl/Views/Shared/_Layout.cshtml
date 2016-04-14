@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="~/Content/images/AC.ico" />
     <title>AccessControl</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <!-- FUTURAMENTE USAR O BOOTSTRAP ABAIXO -->
-    <!--@Styles.Render("~/Content/bootstrap/css")
-    @Scripts.Render("~/Content/bootstrap/js")-->
-    <!-- FUTURAMENTE USAR O BOOTSTRAP ACIMA -->
+    <!-- BOOTSTRAP ABAIXO -->
+    @Styles.Render("~/Content/bootstrap/css")
+    @Scripts.Render("~/Content/bootstrap/js")
+    <!-- BOOTSTRAP ACIMA -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="~/Scripts/jquery.maskedinput.min.js"></script>
     <style type="text/css">
@@ -123,6 +124,23 @@
                 color: #069;
             }
 
+        a.pesq, input.pesq {
+            cursor: pointer;
+            padding: 4px;
+            border: 0 none none;
+            font-size: 13px;
+            font-family: "Comic Sans Serif", "Comic Sans", sans-serif;
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+            background-color: #333;
+            float: none;
+        }
+
+            a.pesq:hover, input.pesq:hover {
+                color: #069;
+            }
+
         hr {
             width: 100%;
             text-align: center;
@@ -130,35 +148,39 @@
     </style>
 </head>
 <body>
-    <header class="navigation">
-        <ul class="nav">
-            <li>
-                @Html.ActionLink("Início", "Inicio", "Inicio")
-            </li>
-            <li>
-                @Html.ActionLink("Sobre", "Sobre", "Inicio")
-            </li>
-        </ul>
-    </header>
-    <fieldset>
-        <legend>@ViewBag.Legend</legend>
-        <section>
-            @RenderBody()
-        </section>
-    </fieldset>
-    <div>
+    <div class="section col-md-12">
+        <header class="navigation">
+            <ul class="nav">
+                <li>
+                    @Html.ActionLink("Início", "Inicio", "Inicio")
+                </li>
+                <li>
+                    @Html.ActionLink("Sobre", "Sobre", "Inicio")
+                </li>
+            </ul>
+        </header>
+    </div>
+    <div class="section col-md-12">
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            <section>
+                @RenderBody()
+            </section>
+        </fieldset>
+    </div>
+    <div class="col-md-12">
         @{
             if (ViewBag.Tipo == "Adm")
             {
-                <header class="navigation col-md-12">
-                    <ul class="nav col-md-12">
-                        <li class="adm col-md-4">
-                            <a href="~/Administracao/Consultar" onclick="loading(event)">Consultarr</a>
+                <header class="navigation">
+                    <ul class="nav">
+                        <li class="adm">
+                            <a href="~/Administracao/Consultar" onclick="loading(event)">Consultar</a>
                         </li>
-                        <li class="adm col-md-4">
+                        <li class="adm">
                             <a href="~/Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
                         </li>
-                        <li class="adm col-md-4">
+                        <li class="adm">
                             <a href="~/Administracao/Deletar" onclick="loading(event)">Deletar</a>
                         </li>
                     </ul>
