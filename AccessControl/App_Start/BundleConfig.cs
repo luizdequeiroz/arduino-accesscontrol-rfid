@@ -40,10 +40,13 @@ namespace AccessControl
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/Content/bootstrap/js").Include(
-                        "~/Content/bootstrap/js/bootstrap*",
+                        "~/Content/bootstrap/js/bootstrap.js",
+                        "~/Content/bootstrap/js/bootstrap.min.js",
                         "~/Content/bootstrap/js/npm.js"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include("~/Content/bootstrap/css/bootstrap*"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
+                        "~/Content/bootstrap/css/bootstrap-theme.*",
+                        "~/Content/bootstrap/css/bootstrap.*"));
         }
     }
 }
