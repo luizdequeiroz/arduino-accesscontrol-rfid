@@ -42,7 +42,7 @@
             this.WebAC.ScriptErrorsSuppressed = true;
             this.WebAC.Size = new System.Drawing.Size(700, 378);
             this.WebAC.TabIndex = 0;
-            this.WebAC.Url = new System.Uri("http://localhost/AccessControl/", System.UriKind.Absolute);
+            this.WebAC.Url = new System.Uri("http://theaccesscontrol.azurewebsites.net/", System.UriKind.Absolute);
             // 
             // FormPOTAC
             // 
