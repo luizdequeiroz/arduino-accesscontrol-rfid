@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-    var tag = '123456789'; // para teste, o valor oficial eh ''
-    while (true) {
+    var tag = ''; // para teste, o valor oficial eh ''
+    console.log("Variavel tag declarada!");
+    setInterval(function requestObserver() {
+        console.log("Inicio do intervalo! Tentar fazer a requisicao Ajax...");
         // Consumir a WebService Arduino...
         $.ajax({
             type: "GET",
@@ -13,14 +15,24 @@ $(document).ready(function () {
             success: function (result, jqXHR) {
                 // Interpretando retorno JSON...
                 tag = JSON.parse(result);
+
+                console.log("Sucesso na requisicao");
+
+                $('#Rfid').val(tag);
+                $('form').submit();
             },
             error: function (jqXHR, status) {
-                tag = '123456789'; // para teste, o valor oficial eh ''
-            },
+
+                $.ajax(requestObserver());
+                console.log("Erro na requisicao: " + jqXHR);
+            }
         });
-        if (tag != '')
-            break;
-    }
-    $('#Rfid').val(tag);
-    $('form').submit();
+
+        console.log("Fim da requisicao Ajax!");
+        if (tag == '') {
+
+            console.log("Recarregando a pagina...");
+        }
+    }, 3000);
+
 });
