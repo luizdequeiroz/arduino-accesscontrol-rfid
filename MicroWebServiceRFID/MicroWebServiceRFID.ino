@@ -3,16 +3,16 @@
 
 #include<RFID.h> //inclui a biblioteca RFID
 
-#define SS_PIN 10 //Slave Select
-#define RST_PIN 9
+#define SS_ETH 10
+#define SS_RFID 5
+#define RST_RFID 9
 
-RFID rfid(SS_PIN,RST_PIN); //cria objeto RFID
+RFID rfid(SS_RFID,RST_RFID); //cria objeto RFID
 String tag = ""; // Vai acumular a tag aqui.
  
 // Entre com os dados do MAC e ip para o dispositivo.
 // Lembre-se que o ip depende de sua rede local
-byte mac[] = { 
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192,168,1,101);
  
 // Inicializando a biblioteca Ehternet
@@ -20,40 +20,37 @@ IPAddress ip(192,168,1,101);
 EthernetServer server(80);
  
 void setup() {
- // Abrindo a comunicação serial para monitoramento.
+  // Abrindo a comunicação serial para monitoramento.
   Serial.begin(9600);
-  while (!Serial) {
-    ; // esperar por porta serial para conectar. Necessário apenas para Leonardo
-  }
-  SPI.begin(); //não sei se é necessário, peguei com o exemplo
-  
   // Inicia a conexão Ethernet e o servidor:
   Ethernet.begin(mac, ip);
   server.begin();
   Serial.print("Servidor iniciado em: ");
   Serial.println(Ethernet.localIP());
-  
+  digitalWrite(SS_ETH, HIGH);
+  digitalWrite(SS_RFID, LOW);   
   rfid.init(); //abrir biblioteca RFID.h e .cpp
 }
  
-void loop() {
-  byte status; // Não sei pra quê serve isso.
+void loop() { 
   if(rfid.isCard()){
     if(rfid.readCardSerial()){ 
       Serial.print("ID: "); 
       for(int k=0;k<5;k++){
         Serial.print(" "); 
         Serial.print(rfid.serNum[k],HEX);
-        tag += (rfid.serNum[k], HEX); // Aqui eu acumulo, teoricamente (até testar), a tag RFID.
+        tag[k] = rfid.serNum[k]; // Aqui eu acumulo, teoricamente (até testar), a tag RFID.
       }
       Serial.println("");
     } 
     delay(500);
   }
   rfid.halt();
-
+  
   // Se a tag for diferente de vazio, então eis o que acontece.
   if(tag != ""){
+    digitalWrite(SS_ETH, LOW);
+    digitalWrite(SS_RFID, HIGH);
     // Aguardando novos clientes;
     EthernetClient client = server.available();
     if (client) {
@@ -70,9 +67,9 @@ void loop() {
           if (c == '\n' && currentLineIsBlank) {
             // Envia um cabeçalho de resposta HTTP padrão
             client.println("HTTP/1.1 200 OK");
-            client.println("Content-Type: text/html");
+            client.println("Content-Type: application/json");
             client.println("Connection: close");  // a conexão será fechada após a conclusão da resposta
-            client.println("Refresh: 5");  // atualizar a página automaticamente a cada 5 segundos
+            //client.println("Refresh: 5");  // atualizar a página automaticamente a cada 5 segundos
             client.println();
             client.println(tag); // envio a tag como texto da resposta da requisição, teoricamente (até testar)
             break;
@@ -94,6 +91,8 @@ void loop() {
       Serial.println("Cliente desconectado");
       delay(2000); // tempo antes da limpeza da tag
       tag = ""; // zera a tag para o próximo cartão
+      digitalWrite(SS_ETH, HIGH);
+      digitalWrite(SS_RFID, LOW);
     }
   }
 }
