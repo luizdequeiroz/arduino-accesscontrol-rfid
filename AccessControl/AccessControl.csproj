@@ -172,6 +172,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\jquery.js" />
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\images\AC.ico" />
     <Content Include="Content\images\loader.gif" />
