@@ -1,9 +1,8 @@
 $(document).ready(function () {
 
+    var i = 0;
     var tag = ''; // para teste, o valor oficial eh ''
-    console.log("Variavel tag declarada!");
     setInterval(function requestObserver() {
-        console.log("Inicio do intervalo! Tentar fazer a requisicao Ajax...");
         // Consumir a WebService Arduino...
         $.ajax({
             type: "GET",
@@ -16,23 +15,16 @@ $(document).ready(function () {
                 // Interpretando retorno JSON...
                 tag = JSON.parse(result);
 
-                console.log("Sucesso na requisicao");
-
                 $('#Rfid').val(tag);
                 $('form').submit();
             },
             error: function (jqXHR, status) {
 
+                i += 1;
+                if (i == 500) window.location = "http://theaccesscontrol.azurewebsites.net/";
                 $.ajax(requestObserver());
-                console.log("Erro na requisicao: " + jqXHR);
             }
         });
-
-        console.log("Fim da requisicao Ajax!");
-        if (tag == '') {
-
-            console.log("Recarregando a pagina...");
-        }
     }, 3000);
 
 });
