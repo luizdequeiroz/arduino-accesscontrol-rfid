@@ -1,0 +1,33 @@
+{
+    // obrigatorio
+    "manifest_version": 2,
+    "name": "AccessControl",
+    "version": "1.0",
+ 
+    // descricao da extensao
+    "description": "Observa a o MicroWebServiceArduinoRFID para repassar como requisicao as Tags de RFID para o AccessControl",
+ 
+    // iconea da nossa extensao
+    "icons": {
+       "48": "AC.png",
+       "128": "AC.png"
+    },
+
+    "browser_action": {
+        "default_icon": "AC.png"
+    },
+ 
+    // declaracao das permissoes
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "declarativeContent"
+    ],
+ 
+    // injecao dos arquivos quando "match" ocorrer
+    "content_scripts": [ {
+        "js": [ "jquery.js", "POTAC.js" ],
+        "matches": [ "*://theaccesscontrol.azurewebsites.net/" ]
+    } ]
+}

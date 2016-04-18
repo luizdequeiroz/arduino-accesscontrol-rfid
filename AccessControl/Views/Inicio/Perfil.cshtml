@@ -17,14 +17,14 @@
     <img src="~/Content/images/loader.gif" />
 </div>
 
+@if (Model.Tipo.Equals("Adm"))
+{
+    <a class="func" href="~/Administracao/Formulario?email=@Model.Email" onclick="loading(event)">ATUALIZAR-ME</a>
+}
 <div id="foto">
     <img src="data:image;base64, @System.Convert.ToBase64String(bfoto.Imagem)" alt="foto do perfil" height="120" width="120" />
 </div>
 <div id="dados">
-    @if (Model.Tipo.Equals("Adm"))
-    {
-        <a class="func" href="Administracao/Formulario?email=@Model.Email" onclick="loading(event)">ATUALIZAR-ME</a>
-    }
     <div id="email">
         <b>E-MAIL </b>
         <i>@Html.DisplayFor(model => model.Email)</i>
@@ -54,27 +54,7 @@
                     <span>Administrador</span>
                 }
             }
-        </i><a class="func" href="Inicio/Sair" onclick="loading(event)">Sair</a>
+        </i><a class="func" href="~/Inicio/Sair" onclick="loading(event)">Sair</a>
     </div>
 </div>
-
-<p>
-    @{
-        if (Model.Tipo == "Adm")
-        {
-            <header class="navigation">
-                <ul class="nav">
-                    <li class="adm">
-                        <a href="Administracao/Consultar" onclick="loading(event)">Consultar</a>
-                    </li>
-                    <li class="adm">
-                        <a href="Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
-                    </li>
-                    <li class="adm">
-                        <a href="Administracao/Deletar" onclick="loading(event)">Deletar</a>
-                    </li>
-                </ul>
-            </header>
-        }
-    }
-</p>
+@{ ViewBag.Tipo = Model.Tipo; }
