@@ -32,6 +32,17 @@ $(document).ready(function () {
 });
 */
 
+/* Função para convertar texto em DEC abaixo */
+function convertDec(input) {
+    
+    var dec = '';
+    for (i = 0; i < input.length; i++) {
+        dec += input[i].charCodeAt(0);
+    }
+    return dec;
+}
+/* Função para convertar texto em DEC acima */
+
 function observer() {
 
     var count = 0;
@@ -42,7 +53,7 @@ function observer() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     if (this.responseText != null) {
-                        $('#Rfid').val(this.responseText);
+                        $('#Rfid').val(convertDec(this.responseText));
                         $('form').submit();
                     }
                 }
