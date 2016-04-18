@@ -1,0 +1,7 @@
+﻿@{
+    var cache = TheAccessControl.Controllers.AdministracaoController.cache;
+
+<h2>Sucesso, @cache["nomeCadastrado"].ToString() foi cadastrado(a)!</h2>
+
+    TheAccessControl.Controllers.AdministracaoController.cache.Remove("nomeCadastrado");
+}

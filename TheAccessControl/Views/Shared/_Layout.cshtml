@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="~/Content/images/AC.ico" />
+    <title>AccessControl</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js"></script>
+
+    <!-- BOOTSTRAP ABAIXO -->
+    <link href="/Content/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="/Content/bootstrap/css/bootstrap-theme.css.map" rel="stylesheet" />
+    <link href="/Content/bootstrap/css/bootstrap-theme.min.css.map" rel="stylesheet" />
+    <link href="/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/bootstrap/css/bootstrap.min.css.map" rel="stylesheet" />
+
+    <script src="/Content/bootstrap/js/bootstrap.js"></script>
+    <!-- BOOTSTRAP ACIMA -->
+
+    <style type="text/css">
+        footer {
+            text-align: center;
+        }
+
+        .navigation {
+        }
+
+        .nav {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            text-align: center;
+        }
+
+            .nav li {
+                float: left;
+                width: 50%;
+                position: relative;
+            }
+
+                .nav li.adm {
+                    width: 33.33%;
+                }
+
+                .nav li a {
+                    background: #333;
+                    color: #fff;
+                    display: block;
+                    padding: 7px 8px;
+                    text-decoration: none;
+                    border-top: 1px solid #069;
+                }
+
+                    .nav li a:hover {
+                        color: #069;
+                    }
+
+        legend {
+            color: black;
+        }
+
+        /* Inputs */
+
+        /*
+        .input-style { //tem que dicionar as class nos inputs
+            height: 30px;
+            border-radius: 10px;
+            font-family: "Comic Sans Serif", "Comic Sans", cursive;
+            padding: 5px;
+        }
+
+        .button-style { //tem que adicionar a class no(s) button(s)
+            width: 100px;
+            height: 30px;
+            border: 0 none none;
+        }
+
+        .iso { //tem que adicionar as class nos fieldsets internos
+            color: white;
+            border-top-right-radius: 100%;
+            border-bottom-right-radius: 100%;
+        }
+        */
+
+        #foto {
+            float: left;
+            margin: 5px;
+        }
+
+        #dados {
+            margin: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: "Comic Sans Serif", "Comic Sans", cursive;
+        }
+
+        #dadosList {
+            margin: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: "Comic Sans Serif", "Comic Sans", sans-serif;
+        }
+
+        h2, h3 {
+            text-align: center;
+        }
+
+        div.func {
+            display: block;
+            float: right;
+        }
+
+        a.func, input.func {
+            cursor: pointer;
+            padding: 4px;
+            border: 0 none none;
+            font-size: 13px;
+            font-family: "Comic Sans Serif", "Comic Sans", sans-serif;
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+            background-color: #333;
+            float: right;
+        }
+
+            a.func:hover, input.func:hover {
+                color: #069;
+            }
+
+        a.pesq, input.pesq {
+            cursor: pointer;
+            padding: 4px;
+            border: 0 none none;
+            font-size: 13px;
+            font-family: "Comic Sans Serif", "Comic Sans", sans-serif;
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+            background-color: #333;
+            float: none;
+        }
+
+            a.pesq:hover, input.pesq:hover {
+                color: #069;
+            }
+
+        hr {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="section col-md-12">
+        <header class="navigation">
+            <ul class="nav">
+                <li>
+                    @Html.ActionLink("Início", "Inicio", "Inicio")
+                </li>
+                <li>
+                    @Html.ActionLink("Sobre", "Sobre", "Inicio")
+                </li>
+            </ul>
+        </header>
+    </div>
+    <div class="section col-md-12">
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            <section>
+                @RenderBody()
+            </section>
+        </fieldset>
+    </div>
+    <div class="section col-md-12">
+        @{
+            if (ViewBag.Tipo == "Adm")
+            {
+                <header class="navigation">
+                    <ul class="nav">
+                        <li class="adm">
+                            <a href="~/Administracao/Consultar" onclick="loading(event)">Consultar</a>
+                        </li>
+                        <li class="adm">
+                            <a href="~/Administracao/Atualizar" onclick="loading(event)">Atualizar</a>
+                        </li>
+                        <li class="adm">
+                            <a href="~/Administracao/Deletar" onclick="loading(event)">Deletar</a>
+                        </li>
+                    </ul>
+                </header>
+            }
+        }
+    </div>
+    <footer>
+        AccessControl &copy; Todos os direitos reservados.
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
