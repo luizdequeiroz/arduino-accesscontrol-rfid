@@ -1,4 +1,4 @@
-/*
+﻿/*
 $(document).ready(function () {
 
     var i = 0;
@@ -22,7 +22,7 @@ $(document).ready(function () {
             error: function (jqXHR, status) {
 
                 i += 1;
-                if (i == 500) window.location = "http://theaccesscontrol.azurewebsites.net/";
+                if (i == 500) window.location = "http://localhost/AccessControl";
                 $.ajax(requestObserver());
             }
         });
@@ -42,6 +42,8 @@ function convertDec(input) {
     return dec;
 }
 /* Função para convertar texto em DEC acima */
+
+function interrupt() { }
 
 function observer() {
 
@@ -63,16 +65,15 @@ function observer() {
                 console.log('requisicao: ' + count +
                       '\nreadyState: ' + this.readyState +
                       '\nstatus: ' + this.status +
-                      '\nresponseText: ' + this.responseText);
+                      '\nresponseText: ' + convertDec(this.responseText));
             }
             if (count == 100) {
                 console.clear();
                 count = 500;
-                /* Teste */
-                $('#Rfid').val(123456789);
-                $('form').submit();
-                //window.location = 'http://theaccesscontrol.azurewebsites.net';
+                window.location = 'http://localhost/AccessControl';
             }
+	    if(this.responseText != '')
+		interrupt();
         }
         request.open('GET', 'http://192.168.25.101/', true);
         request.send(null);
