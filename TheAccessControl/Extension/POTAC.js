@@ -38,8 +38,6 @@ function observer() {
                 count = 500;
                 window.location = 'http://localhost/AccessControl';
             }
-            if (this.responseText != '')
-                interrupt();
         }
         request.open('GET', 'http://192.168.25.101/', true);
         request.send(null);
