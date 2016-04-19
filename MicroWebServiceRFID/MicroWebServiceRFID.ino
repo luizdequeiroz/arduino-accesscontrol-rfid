@@ -8,49 +8,53 @@
 #define RST_RFID 9
 
 RFID rfid(SS_RFID,RST_RFID); //cria objeto RFID
-String tag = ""; // Vai acumular a tag aqui.
- 
+
+byte dado[] = {0,0,0,0,0};
 // Entre com os dados do MAC e ip para o dispositivo.
 // Lembre-se que o ip depende de sua rede local
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE };
 IPAddress ip(192,168,25,101);
+IPAddress gateway(192,168,25,1);
+IPAddress subnet(255,255,255,0);
  
 // Inicializando a biblioteca Ehternet
 // 80 é a porta que será usada. (padrão http)
 EthernetServer server(80);
- 
+int f=0;
 void setup() {
   // Abrindo a comunicação serial para monitoramento.
   Serial.begin(9600);
   // Inicia a conexão Ethernet e o servidor:
-  Ethernet.begin(mac, ip);
+  Ethernet.begin(mac, ip, gateway, subnet);
   server.begin();
   Serial.print("Servidor iniciado em: ");
   Serial.println(Ethernet.localIP());
-  //digitalWrite(SS_ETH, HIGH);
-  //digitalWrite(SS_RFID, LOW);   
-  //rfid.init(); //abrir biblioteca RFID.h e .cpp
+  digitalWrite(SS_ETH, HIGH);
+  digitalWrite(SS_RFID, LOW);   
+  rfid.init(); //abrir biblioteca RFID.h e .cpp
 }
  
 void loop() { 
-  /*if(rfid.isCard()){
+  if(rfid.isCard()){
     if(rfid.readCardSerial()){ 
       Serial.print("ID: "); 
       for(int k=0;k<5;k++){
+        dado[k] = rfid.serNum[k]; 
         Serial.print(" "); 
-        Serial.print(rfid.serNum[k],DEC);
-        tag[k] = rfid.serNum[k]; // Aqui eu acumulo, teoricamente (até testar), a tag RFID.
+        Serial.print(dado[k]);
+        if (dado[k]!= 0) f=1;
       }
-      Serial.println("");
     } 
+    Serial.println(" "); 
     delay(500);
   }
-  rfid.halt();*/
-  tag == "123456789";
+  rfid.halt();
+
   // Se a tag for diferente de vazio, então eis o que acontece.
-  if(tag != ""){
-    //digitalWrite(SS_ETH, LOW);
-    //digitalWrite(SS_RFID, HIGH);
+  if(f != 0){
+    f=0;
+    digitalWrite(SS_ETH, LOW);
+    digitalWrite(SS_RFID, HIGH);
     // Aguardando novos clientes;
     EthernetClient client = server.available();
     if (client) {
@@ -71,7 +75,11 @@ void loop() {
             client.println("Connection: close");  // a conexão será fechada após a conclusão da resposta
             //client.println("Refresh: 5");  // atualizar a página automaticamente a cada 5 segundos
             client.println();
-            client.println((tag, DEC)); // envio a tag como texto da resposta da requisição, teoricamente (até testar)
+            //client.print("<html><head><title>ArduinoRFID</title></head><body><input type='text' value='");
+            client.write((char *)dado); // envio a tag como texto da resposta da requisição, teoricamente (até testar)
+            //client.println("' /></body></html>");
+            Serial.print("Respondendo ao cliente a Tag: ");
+            Serial.println((char *)dado);
             break;
           }
           if (c == '\n') {
@@ -89,10 +97,10 @@ void loop() {
       // Fecha a conexão:
       client.stop();
       Serial.println("Cliente desconectado");
-      delay(2000); // tempo antes da limpeza da tag
-      tag = ""; // zera a tag para o próximo cartão
-      //digitalWrite(SS_ETH, HIGH);
-      //digitalWrite(SS_RFID, LOW);
+      //delay(3000); // tempo antes da limpeza da tag
+      digitalWrite(SS_ETH, HIGH);
+      digitalWrite(SS_RFID, LOW);
     }
   }
 }
+
