@@ -247,6 +247,8 @@
     </Content>
     <Content Include="Extension\manifest.json" />
     <None Include="Properties\PublishProfiles\AccessControlLocal.pubxml" />
+    <None Include="Properties\PublishProfiles\theaccesscontrol - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\theaccesscontrol - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Models\AccessControl.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

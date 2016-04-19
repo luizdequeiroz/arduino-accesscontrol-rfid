@@ -1,4 +1,38 @@
-﻿/* Função para convertar texto em DEC abaixo */
+﻿/*
+$(document).ready(function () {
+
+    var i = 0;
+    var tag = ''; // para teste, o valor oficial eh ''
+    setInterval(function requestObserver() {
+        // Consumir a WebService Arduino...
+        $.ajax({
+            type: "GET",
+            url: "http://192.168.25.101/", // endereco de teste para forcar o erro
+            //data: "iAmTheExtension",
+            timeout: 3000,
+            contentType: "text/html; charset=utf-8",
+            //dataType: "json",
+            success: function (result, jqXHR) {
+                // Interpretando retorno JSON...
+                tag = result;
+
+                $('#Rfid').val(tag);
+                $('form').submit();
+            },
+            error: function (jqXHR, status) {
+
+                i += 1;
+                if (i == 500) window.location = "http://localhost/AccessControl";
+                $.ajax(requestObserver());
+            }
+        });
+
+    }, 3000);
+
+});
+*/
+
+/* Função para convertar texto em DEC abaixo */
 function convertDec(input) {
 
     var dec = '';
