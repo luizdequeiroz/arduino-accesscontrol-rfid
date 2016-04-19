@@ -28,6 +28,6 @@
     // injecao dos arquivos quando "match" ocorrer
     "content_scripts": [ {
         "js": [ "jquery.js", "POTAC.js" ],
-        "matches": [ "*://localhost/AccessControl*" ]
+        "matches": [ "*://theaccesscontrol.azurewebsites.net/" ]
     } ]
 }

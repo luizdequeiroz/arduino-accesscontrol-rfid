@@ -36,7 +36,7 @@ function observer() {
             if (count == 100) {
                 console.clear();
                 count = 500;
-                window.location = 'http://localhost/AccessControl';
+                window.location = 'http://theaccesscontrol.azurewebsites.net/';
             }
         }
         request.open('GET', 'http://192.168.25.101/', true);
