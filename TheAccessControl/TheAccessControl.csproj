@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{00A77A61-CCCA-4970-A2F9-07C6900B5DB2}</ProjectGuid>
+    <ProjectGuid>{1C298FB2-0214-4B4D-B18F-44357BFFB080}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -226,6 +226,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Extension\AC.png" />
+    <Content Include="Extension\jquery.js" />
+    <Content Include="Extension\POTAC.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />
@@ -242,6 +245,7 @@
     <Content Include="Models\AccessControl.edmx.diagram">
       <DependentUpon>AccessControl.edmx</DependentUpon>
     </Content>
+    <Content Include="Extension\manifest.json" />
     <None Include="Properties\PublishProfiles\AccessControlLocal.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Models\AccessControl.Context.tt">
