@@ -36,7 +36,7 @@ function observer() {
             if (count == 300) {
                 console.clear();
                 count = 1500;
-                window.location.reload();
+                window.location.reload(false);
             }
         }
         request.open('GET', 'http://192.168.25.101/', true);
