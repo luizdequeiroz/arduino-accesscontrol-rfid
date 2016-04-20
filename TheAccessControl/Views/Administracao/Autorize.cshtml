@@ -14,11 +14,12 @@
     <div id="load" style="display: none">
         <img src="~/Content/images/loader.gif" />
     </div>
-    <div style="display: block">
+    <div style="display: none">
         <!-- BEGIN TESTE -->
         <h4>Begin Inputs de Teste</h4>
         <p>
             @Html.EditorFor(model => model.Rfid)
+            @Html.ValidationMessageFor(model => model.Rfid)
         </p>
         <p><input type="submit" value="ENVIAR" onclick="loading(event)" /></p>
         <h4>End Inputs de Teste</h4>

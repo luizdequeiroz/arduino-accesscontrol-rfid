@@ -16,7 +16,8 @@ namespace TheAccessControl.Controllers
 
         public ActionResult Inicio()
         {
-            AdministracaoController.cache.Clear();
+            Session.Remove("usuarioCad");
+            Session.Remove("bytsCad");
             if (Session["rfid"] != null)
             {
                 var usuario = usuarioDao.Selecionar((string)Session["rfid"]);

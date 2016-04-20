@@ -49,8 +49,8 @@ namespace TheAccessControl.Controllers
                             return View();
                         }
 
-                        AdministracaoController.cache["usuario"] = usuario;
-                        AdministracaoController.cache["byts"] = byts;
+                        Session["usuarioCad"] = usuario;
+                        Session["bytsCad"] = byts;
                     }
                     else
                     {

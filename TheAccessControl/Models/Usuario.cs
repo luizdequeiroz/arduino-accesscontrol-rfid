@@ -17,7 +17,6 @@ namespace TheAccessControl.Models
     public partial class Usuario
     {
         public int Id { get; set; }
-
         [Required(ErrorMessage = "Informe seu nome. Năo precisa ser completo!")]
         public string Nome { get; set; }
 

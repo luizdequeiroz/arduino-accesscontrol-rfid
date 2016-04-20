@@ -5,7 +5,7 @@
     "version": "1.0",
  
     // descricao da extensao
-    "description": "Observa a o MicroWebServiceRFID para repassar como requisicao as Tags de RFID para o AccessControl",
+    "description": "Observa a o MicroWebServiceArduinoRFID para repassar como requisicao as Tags de RFID para o AccessControl",
  
     // iconea da nossa extensao
     "icons": {

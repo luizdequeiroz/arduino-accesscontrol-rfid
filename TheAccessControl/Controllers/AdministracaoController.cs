@@ -17,7 +17,6 @@ namespace TheAccessControl.Controllers
     {
         UsuarioDao usuarioDao = new UsuarioDao();
         FotoDao fotoDao = new FotoDao();
-        public static Hashtable cache = new Hashtable();
 
         public ActionResult Consultar(string busca = "")
         {
@@ -123,17 +122,17 @@ namespace TheAccessControl.Controllers
                 ModelState.AddModelError("", "Rfid inválido, não possui autoridade ou não existe!");
                 return View();
             }
-            if (AdministracaoController.cache.Count == 2)
+            if (Session["usuarioCad"] != null)
             {
                 try
                 {
-                    usuario = (Usuario)AdministracaoController.cache["usuario"];
-                    var byts = (byte[])AdministracaoController.cache["byts"];
-                    AdministracaoController.cache.Remove("usuario");
-                    AdministracaoController.cache.Remove("byts");
+                    usuario = (Usuario)Session["usuarioCad"];
+                    var byts = (byte[])Session["bytsCad"];
+                    Session.Remove("usuarioCad");
+                    Session.Remove("bytsCad");
                     fotoDao.Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
                     usuarioDao.Inserir(usuario);
-                    AdministracaoController.cache["nomeCadastrado"] = usuario.Nome;
+                    Session["nomeCadastrado"] = usuario.Nome;
                     return RedirectToAction("Sucesso", "Cadastro");
                 }
                 catch (Exception e)

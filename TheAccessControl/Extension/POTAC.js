@@ -22,7 +22,6 @@ function observer() {
                 if (this.status == 200) {
                     if (this.responseText != null) {
                         $('#Rfid').val(convertDec(this.responseText));
-                        $('#load').css('display', 'block').css('text-align', 'center');
                         $('form').submit();
                     }
                 }
