@@ -5,7 +5,7 @@
     "version": "1.0",
  
     // descricao da extensao
-    "description": "Observa a o MicroWebServiceArduinoRFID para repassar como requisicao as Tags de RFID para o AccessControl",
+    "description": "Observa a o MicroWebServiceRFID para repassar como requisicao as Tags de RFID para o AccessControl",
  
     // iconea da nossa extensao
     "icons": {
@@ -28,6 +28,6 @@
     // injecao dos arquivos quando "match" ocorrer
     "content_scripts": [ {
         "js": [ "jquery.js", "POTAC.js" ],
-        "matches": [ "*://theaccesscontrol.azurewebsites.net/" ]
+        "matches": [ "*://theaccesscontrol.azurewebsites.net/*" ]
     } ]
 }
