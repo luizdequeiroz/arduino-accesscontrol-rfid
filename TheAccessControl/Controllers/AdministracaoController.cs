@@ -101,20 +101,18 @@ namespace TheAccessControl.Controllers
 
         public ActionResult Autorize()
         {
-            var objs = new ObjsTest();
+            var objs = new ObjsTag();
             return View(objs);
         }
 
         [HttpPost]
-        public ActionResult Autorize(/*string rfid*/ObjsTest objs)
+        public ActionResult Autorize(ObjsTag objs)
         {
-            /* BEGIN TESTE */
             if (objs.Rfid == "")
             {
                 ModelState.AddModelError("", "Insira o código do RFID!");
                 return View();
             }
-            /* END TESTE */
 
             var usuario = usuarioDao.Selecionar(objs.Rfid);
             if (usuario == null || usuario.Tipo.Equals("Nor"))

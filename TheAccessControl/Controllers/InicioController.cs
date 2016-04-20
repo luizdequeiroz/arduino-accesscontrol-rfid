@@ -29,20 +29,19 @@ namespace TheAccessControl.Controllers
 
                 return View("Perfil", usuario);
             }
-            var objs = new ObjsTest();
+            var objs = new ObjsTag();
             return View(objs);
         }
 
         [HttpPost]
-        public ActionResult Inicio(/* string rfid *//* BEGIN TESTE */ObjsTest objs)
+        public ActionResult Inicio(ObjsTag objs)
         {
-            /* BEGIN TESTE */
             if (objs.Rfid == "")
             {
                 ModelState.AddModelError("Rfid", "Insira o código do RFID!");
                 return View();
             }
-            /* END TESTE */
+
             var usuario = usuarioDao.Selecionar(objs.Rfid);
             Session["rfid"] = objs.Rfid;
             if (usuario == null) return RedirectToAction("Cadastrar", "Cadastro");

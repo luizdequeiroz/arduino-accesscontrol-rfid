@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace TheAccessControl.Models
 {
-    public class ObjsTest
+    public class ObjsTag
     {
         [Required(ErrorMessage = "Insira o código do RFID!")]
         public string Rfid { get; set; }

@@ -154,7 +154,7 @@
     <Compile Include="Models\Foto.cs">
       <DependentUpon>AccessControl.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ObjsTest.cs" />
+    <Compile Include="Models\ObjsTag.cs" />
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>AccessControl.tt</DependentUpon>
     </Compile>

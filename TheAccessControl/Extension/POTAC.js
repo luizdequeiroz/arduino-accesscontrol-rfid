@@ -9,8 +9,7 @@ function convertDec(input) {
 }
 /* Função para convertar texto em DEC acima */
 
-function interrupt() { }
-
+/* Função para observar, via requisições em intervalos */
 function observer() {
 
     var count = 0;
@@ -22,21 +21,22 @@ function observer() {
                 if (this.status == 200) {
                     if (this.responseText != null) {
                         $('#Rfid').val(convertDec(this.responseText));
+                        $('#load').css('display','block').css('text-align','center');
                         $('form').submit();
                     }
                 }
             }
             count += 1;
-            if (count < 100) {
+            if (count < 300) {
                 console.log('requisicao: ' + count +
-                      '\nreadyState: ' + this.readyState +
-                      '\nstatus: ' + this.status +
-                      '\nresponseText: ' + convertDec(this.responseText));
+                          '\nreadyState: ' + this.readyState +
+                          '\nstatus: ' + this.status +
+                          '\nresponseText: ' + convertDec(this.responseText));
             }
-            if (count == 100) {
+            if (count == 300) {
                 console.clear();
-                count = 500;
-                window.location = 'http://theaccesscontrol.azurewebsites.net/';
+                count = 1500;
+                window.location.reload();
             }
         }
         request.open('GET', 'http://192.168.25.101/', true);
@@ -44,6 +44,7 @@ function observer() {
         setTimeout('request()', 1000);
     }, 1000);
 }
+/* Função para observar, via requisições em intervalos */
 
 $(document).ready(function () {
     $.ajax(observer());

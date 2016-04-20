@@ -41,7 +41,7 @@ void loop() {
       for(int k=0;k<5;k++){
         dado[k] = rfid.serNum[k]; 
         Serial.print(" "); 
-        Serial.print(dado[k]);
+        Serial.print(dado[k], HEX);
         if (dado[k]!= 0) f=1;
       }
     } 
