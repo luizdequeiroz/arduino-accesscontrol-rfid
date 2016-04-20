@@ -246,6 +246,8 @@
       <DependentUpon>AccessControl.edmx</DependentUpon>
     </Content>
     <Content Include="Extension\manifest.json" />
+    <Content Include="Extension\Extension.crx" />
+    <Content Include="Extension\Extension.pem" />
     <None Include="Properties\PublishProfiles\AccessControlLocal.pubxml" />
     <None Include="Properties\PublishProfiles\theaccesscontrol - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\theaccesscontrol - Web Deploy.pubxml" />
