@@ -21,8 +21,10 @@
     };
     var loading = function (event) {
         document.getElementById('load').style = 'display: normal; text-align: center';
-        sleep(5000);
-        document.getElementById('load').style = 'display: none; text-align: center';
+        setTimeout(function () {
+            document.getElementById('load').style = 'display: none';
+        }, 3000);
+        
     }
 </script>
 
@@ -73,7 +75,10 @@
         </div>
     </fieldset>
     <fieldset>
-        <p><input class="func" type="submit" value="SALVAR" onclick="loading(event)" /></p>
+        <p>
+            <h2><label>APROXIME O CARTÃO ADMINISTRATIVO PARA CADASTRAR!</label></h2>
+            <input style="display: none" class="func" type="submit" value="SALVAR" onclick="loading(event)" />
+        </p>
     </fieldset>
 }
 
