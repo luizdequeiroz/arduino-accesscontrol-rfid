@@ -16,8 +16,6 @@ namespace TheAccessControl.Controllers
 
         public ActionResult Inicio()
         {
-            Session.Remove("usuarioCad");
-            Session.Remove("bytsCad");
             if (Session["rfid"] != null)
             {
                 var usuario = usuarioDao.Selecionar((string)Session["rfid"]);
@@ -26,7 +24,6 @@ namespace TheAccessControl.Controllers
                     Session.Remove("rfid");
                     return RedirectToAction("Inicio", "Inicio");
                 }
-
                 return View("Perfil", usuario);
             }
             var objs = new ObjsTag();

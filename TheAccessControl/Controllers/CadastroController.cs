@@ -12,58 +12,63 @@ namespace TheAccessControl.Controllers
     public class CadastroController : Controller
     {
         UsuarioDao usuarioDao = new UsuarioDao();
+        FotoDao fotoDao = new FotoDao();
 
         public ActionResult Cadastrar()
-        {            
-            if (Session["autorize"] == null)
-                return RedirectToAction("Autorize", "Administracao");
+        {
             var usuario = new Usuario();
-            Session.Remove("autorize");
             return View(usuario);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [HttpPost]
-        public ActionResult Cadastrar(Usuario usuario)
+        public ActionResult Cadastrar(Usuario usuario, string tagrec)
         {
-            if (ModelState.IsValid)
+            var uAdm = usuarioDao.Selecionar(tagrec);
+            if (uAdm == null || uAdm.Tipo.Equals("Nor"))
             {
-                try
+                ModelState.AddModelError("", "Rfid inválido, não possui autoridade ou não existe!");
+                return View();
+            }
+            else
+                if (ModelState.IsValid)
                 {
-                    byte[] byts;
-                    var foto = Request.Files[0];
-                    if (foto.FileName == "")
+                    try
                     {
-                        ModelState.AddModelError("", "É importante que você insira uma foto!");
-                        return View();
-                    }
-                    using (var reader = new BinaryReader(foto.InputStream))
-                        byts = reader.ReadBytes(foto.ContentLength);
-
-                    var file = new FileInfo(foto.FileName);
-                    if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
-                    {
-                        if (usuarioDao.Selecionar(usuario.Rfid) != null)
+                        byte[] byts;
+                        var foto = Request.Files[0];
+                        if (foto.FileName == "")
                         {
-                            ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
+                            ModelState.AddModelError("", "É importante que você insira uma foto!");
                             return View();
                         }
+                        using (var reader = new BinaryReader(foto.InputStream))
+                            byts = reader.ReadBytes(foto.ContentLength);
 
-                        Session["usuarioCad"] = usuario;
-                        Session["bytsCad"] = byts;
+                        var file = new FileInfo(foto.FileName);
+                        if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
+                        {
+                            if (usuarioDao.Selecionar(usuario.Rfid) != null)
+                            {
+                                ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
+                                return View();
+                            }
+
+                            fotoDao.Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
+                            usuarioDao.Inserir(usuario);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Insira um arquivo de formato válido para imagem (.jpg, .png, .gif)");
+                            return View();
+                        }
+                        return RedirectToAction("Sucesso", "Cadastro");
                     }
-                    else
+                    catch (Exception e)
                     {
-                        ModelState.AddModelError("", "Insira um arquivo de formato válido para imagem (.jpg, .png, .gif)");
-                        return View();
+                        ModelState.AddModelError("", "Erro ao tentar Cadastrar Usuário: " + e);
                     }
-                    return RedirectToAction("Autorize", "Administracao");
                 }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", "Erro ao tentar Cadastrar Usuário: " + e);
-                }
-            }
             return View(usuario);
         }
 

@@ -1,7 +1,5 @@
 ﻿@{
-
-<h2>Sucesso, @Session["nomeCadastrado"].ToString() foi cadastrado(a)!</h2>
-
-    Session.Remove("nomeCadastrado");
+    var nome =  new TheAccessControl.Models.DAOs.UsuarioDao().Selecionar((string)Session["rfid"]).Nome;
     
+    <h2>Sucesso, @nome foi cadastrado(a)!</h2>
 }

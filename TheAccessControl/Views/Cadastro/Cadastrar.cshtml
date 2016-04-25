@@ -29,6 +29,7 @@
 @using (Html.BeginForm("Cadastrar", "Cadastro", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
+    <input type="hidden" name="tagrec" value="" />
     <input type="hidden" name="rfid" value="@Session["rfid"]" />
     <div id="load" style="display: none">
         <img src="~/Content/images/loader.gif" />

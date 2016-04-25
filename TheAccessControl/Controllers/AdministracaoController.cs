@@ -99,6 +99,7 @@ namespace TheAccessControl.Controllers
             return View();
         }
 
+        /*
         public ActionResult Autorize()
         {
             var objs = new ObjsTag();
@@ -141,6 +142,7 @@ namespace TheAccessControl.Controllers
             Session["autorize"] = objs.Rfid;
             return RedirectToAction("Cadastrar", "Cadastro");
         }
+        */
 
         [NonAction]
         public ActionResult retornarView(string busca, string pagina)

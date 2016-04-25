@@ -246,8 +246,6 @@
       <DependentUpon>AccessControl.edmx</DependentUpon>
     </Content>
     <Content Include="Extension\manifest.json" />
-    <Content Include="Extension\Extension.crx" />
-    <Content Include="Extension\Extension.pem" />
     <None Include="Properties\PublishProfiles\AccessControlLocal.pubxml" />
     <None Include="Properties\PublishProfiles\theaccesscontrol - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\theaccesscontrol - Web Deploy.pubxml" />
@@ -292,7 +290,6 @@
     <Content Include="Views\Administracao\_Perfis.cshtml" />
     <Content Include="Views\Administracao\_Resultado.cshtml" />
     <Content Include="Views\Administracao\Atualizar.cshtml" />
-    <Content Include="Views\Administracao\Autorize.cshtml" />
     <Content Include="Views\Administracao\Consultar.cshtml" />
     <Content Include="Views\Administracao\Deletar.cshtml" />
     <Content Include="Views\Administracao\Formulario.cshtml" />
