@@ -20,10 +20,10 @@ function observer() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     if (this.responseText != null) {
-                        if (window.location.href != 'http://theaccesscontrol.azurewebsites.net/Cadastro/Cadastrar')
-                            $('#Rfid').val(convertDec(this.responseText));
-                        else $('#tagrec').val(convertDec(this.responseText));
-                        $('#load').css('display','block').css('text-align','center');
+
+                        $('#Rfid').val(convertDec(this.responseText));
+
+                        $('#load').css('display', 'block').css('text-align', 'center');
                         $('form').submit();
                     }
                 }

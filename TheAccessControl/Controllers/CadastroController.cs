@@ -22,9 +22,10 @@ namespace TheAccessControl.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [HttpPost]
-        public ActionResult Cadastrar(Usuario usuario, string tagrec)
+        public ActionResult Cadastrar(Usuario usuario)
         {
-            var uAdm = usuarioDao.Selecionar(tagrec);
+            var uAdm = usuarioDao.Selecionar(usuario.Rfid);
+            usuario.Rfid = (string)Session["Rfid"];
             if (uAdm == null || uAdm.Tipo.Equals("Nor"))
             {
                 ModelState.AddModelError("", "Rfid inválido, não possui autoridade ou não existe!");
@@ -49,10 +50,7 @@ namespace TheAccessControl.Controllers
                         if (file.Extension == ".jpg" || file.Extension == ".png" || file.Extension == ".gif")
                         {
                             if (usuarioDao.Selecionar(usuario.Rfid) != null)
-                            {
-                                ModelState.AddModelError("", "Cartão já cadastrado! Volte para o Início e apresente um novo cartão, a sessão atual é de um cartão cadastrado!");
-                                return View();
-                            }
+                                return RedirectToAction("Sucesso", "Cadastro");
 
                             fotoDao.Inserir(new Foto { Imagem = byts, Rfid = usuario.Rfid });
                             usuarioDao.Inserir(usuario);
