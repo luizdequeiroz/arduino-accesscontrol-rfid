@@ -161,6 +161,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\accesscontrol.mdf" />
+    <Content Include="App_Data\accesscontrol_log.ldf">
+      <DependentUpon>accesscontrol.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -255,6 +259,7 @@
       <DependentUpon>AccessControl.edmx</DependentUpon>
       <LastGenOutput>AccessControl.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\AccessControl.edmx.sql" />
     <Content Include="Models\AccessControl.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AccessControl.edmx</DependentUpon>
@@ -301,9 +306,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
